@@ -34,9 +34,6 @@ public class mainMenu {
         if (nbMenu == 3) {
             menu3 menuspe = new menu3();
             menuspe.specialMenu3();
-
-
-            System.out.println(nbMenu);
         }
         if (nbMenu == 4) {
             System.out.println("fermeture du programme ");
