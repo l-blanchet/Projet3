@@ -22,10 +22,8 @@ public class mainMenu {
 
 
         if (nbMenu == 1) {
-            System.out.println("1- Mode Challenger");
-            System.out.println("2- Mode Défenseur ");
-            System.out.println("3- Mode Hybride");
-            System.out.println("4- Retour");
+            menu1 menuspe = new menu1();
+            menuspe.specialMenu1();
             randomizer rand = new randomizer();
             rand.getRandomized();
         }
