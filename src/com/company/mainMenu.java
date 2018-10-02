@@ -28,14 +28,14 @@ public class mainMenu {
             rand.getRandomized();
         }
         if (nbMenu == 2) {
-            System.out.println("1- Mode Challenger");
-            System.out.println("2- Mode Défenseur ");
-            System.out.println("3- Mode Hybride");
-            System.out.println("4- Retour");
+            menu2 menuspe = new menu2();
+            menuspe.specialMenu2();
         }
         if (nbMenu == 3) {
-//           ici proposez le mode développeur quand je saurais faire
-            nbMenu = 1;
+            menu3 menuspe = new menu3();
+            menuspe.specialMenu3();
+
+
             System.out.println(nbMenu);
         }
         if (nbMenu == 4) {
