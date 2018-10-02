@@ -1,8 +1,6 @@
 package com.company;
 
-import com.sun.jdi.Value;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class mainMenu {
@@ -28,6 +26,8 @@ public class mainMenu {
             System.out.println("2- Mode Défenseur ");
             System.out.println("3- Mode Hybride");
             System.out.println("4- Retour");
+            randomizer rand = new randomizer();
+            rand.getRandomized();
         }
         if (nbMenu == 2) {
             System.out.println("1- Mode Challenger");
