@@ -1,10 +1,11 @@
-package com.company;
+package com.louisBlanchet;
 
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class mainMenu {
-    public void displayMenu (){
+public class MainMenu {
+    public void displayMenu () {
         System.out.println("bienvenue sur mon premier projet");
         System.out.println("--------MENU---------");
         System.out.println("1- Plus ou Moins");
@@ -13,7 +14,14 @@ public class mainMenu {
         System.out.println("4- Quitter");
 
         Scanner sc = new Scanner(System.in);
-        int nbMenu = sc.nextInt();
+        int nbMenu = 0;
+        try {
+            nbMenu = sc.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("veillez à ne rentrer que des chiffres !");
+            displayMenu();
+
+        }
         displaySelected(nbMenu);
 
     }
@@ -27,19 +35,19 @@ public class mainMenu {
             randomizer rand = new randomizer();
             rand.getRandomized();
         }
-        if (nbMenu == 2) {
+        else if (nbMenu == 2) {
             menu2 menuspe = new menu2();
             menuspe.specialMenu2();
         }
-        if (nbMenu == 3) {
+        else if (nbMenu == 3) {
             menu3 menuspe = new menu3();
             menuspe.specialMenu3();
         }
-        if (nbMenu == 4) {
+        else if (nbMenu == 4) {
             System.out.println("fermeture du programme ");
             System.exit(0);
         }
-        if (nbMenu <= 0 || nbMenu >= 5) {
+        else {
             System.out.println("vous n'avez pas sélectionné de valeur acceptée");
             displayMenu();
         }

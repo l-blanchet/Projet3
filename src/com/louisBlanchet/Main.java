@@ -1,9 +1,9 @@
-package com.company;
+package com.louisBlanchet;
 
 public class Main {
 
     public static void main(String[] args) {
-        mainMenu main = new mainMenu();
+        MainMenu main = new MainMenu();
         main.displayMenu();
     }
 }

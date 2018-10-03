@@ -1,4 +1,4 @@
-package com.company;
+package com.louisBlanchet;
 
 import java.util.Scanner;
 
@@ -36,7 +36,7 @@ public class menu3 {
             }while (nbMenuspe != 1);
         }
         if (nbMenu3 == 3){
-            mainMenu main = new mainMenu();
+            MainMenu main = new MainMenu();
             main.displayMenu();
         }
     }

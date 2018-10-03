@@ -1,4 +1,4 @@
-package com.company;
+package com.louisBlanchet;
 public class randomizer {
     public void getRandomized() {
         double d = Math.random();
