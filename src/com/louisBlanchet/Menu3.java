@@ -2,7 +2,7 @@ package com.louisBlanchet;
 
 import java.util.Scanner;
 
-public class menu3 {
+public class Menu3 {
     public void specialMenu3 (){
         System.out.println("Vous êtes à présent dans les options " );
         System.out.println("1- Options Avancées");

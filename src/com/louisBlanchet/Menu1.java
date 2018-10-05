@@ -2,7 +2,7 @@ package com.louisBlanchet;
 
 import java.util.Scanner;
 
-public class menu1 {
+public class Menu1 {
     public void specialMenu1 (){
         System.out.println("Choisissez le mode de jeu voulu");
         System.out.println("1- Mode Challenger");
