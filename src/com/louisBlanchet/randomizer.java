@@ -1,11 +1,33 @@
 package com.louisBlanchet;
-public class randomizer {
-    public void getRandomized() {
-        double d = Math.random();
-        System.out.println(d);
-        d= d*10000;
-        System.out.println(d);
-        int n = (int)d;
-        System.out.println(n);
+
+import static java.lang.Math.*;
+
+public class Randomizer {
+
+
+
+    public String[] getRandomized() {
+         int length = 4;
+        double d = random();
+        d *= pow(10, length);
+        int n = (int) d;
+        String nbMystere;
+        nbMystere = Integer.toString(n);
+
+        do {
+            double random = random();
+            random = random*10;
+            int random1 = (int) random;
+            nbMystere = (+random1+ nbMystere);
+        }while (nbMystere.length() < length);
+
+        String[] nbMystereDecoupe = new String[nbMystere.length()];
+
+        for (int compteur = 0; compteur < nbMystere.length(); compteur++) {
+            String decoupage = nbMystere.substring(compteur, compteur + 1);
+            nbMystereDecoupe[compteur] = decoupage;
+        }
+        return nbMystereDecoupe;
     }
+
 }
