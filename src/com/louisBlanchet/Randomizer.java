@@ -14,9 +14,12 @@ public class Randomizer {
         String nbMystere;
         nbMystere = Integer.toString(n);
 
-        if (nbMystere.length() < length) {
-            nbMystere = ("0" + nbMystere);
-        }
+        do {
+            double random = random();
+            random = random*10;
+            int random1 = (int) random;
+            nbMystere = (+random1+ nbMystere);
+        }while (nbMystere.length() < length);
 
         String[] nbMystereDecoupe = new String[nbMystere.length()];
 
