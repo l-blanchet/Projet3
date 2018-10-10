@@ -23,8 +23,7 @@ public class PlusOuMoinsMode1 extends Randomizer {
         System.out.println("Vous avez sélectionné le mode 1, vous avez "+nbEssais+" essais, bonne chance !");
         for (int compteur =0 ; compteur<nbEssais;compteur++) {
             System.out.println(Arrays.toString(nbMystereDecoupe));
-            int compteurEssais = 0;
-            compteurEssais = compteurEssais +1 ;
+            System.out.println(compteur);
             System.out.println("proposition:");
             Scanner sc = new Scanner(System.in);
             int essai = 0;
@@ -72,7 +71,7 @@ public class PlusOuMoinsMode1 extends Randomizer {
 
             if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1) || compteur == 6) {
                 if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1)) {
-                    System.out.println("Vous avez gagné en " + compteurEssais + " essais, Bravo!");
+                    System.out.println("Vous avez gagné en " + compteur + " essais, Bravo!");
                 }
                 if (compteur == 6) {
                     System.out.println("Vous avez perdu");
@@ -102,20 +101,12 @@ public class PlusOuMoinsMode1 extends Randomizer {
                     } else if (selection == 3) {
                         System.out.println("fermeture du programme ");
                         System.exit(0);
-                    } /*else {
-                        sc = new Scanner(System.in);
-                        selection = 0;
-                        try {
-                            selection = sc.nextInt();
-                        } catch (InputMismatchException e) {
-                            System.out.println("veillez à ne rentrer que des chiffres !");
-                        }
-                    }*/
+                    }
+
                 } while ((selection < 1) || (selection > 3));
             }
 
 
-            System.out.println(Arrays.toString(nbMystereDecoupe));
             System.out.println(Arrays.toString(propositionDecoupe));
         }
     }
