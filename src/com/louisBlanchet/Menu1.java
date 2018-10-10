@@ -12,7 +12,10 @@ public class Menu1 {
         Scanner sc = new Scanner(System.in);
         int nbMenu1 = sc.nextInt();
         if (nbMenu1 == 1){
-            System.out.println("test1");
+            Randomizer test = new Randomizer();
+            String[] length = test.getRandomized();
+            PlusOuMoinsMode1 rand = new PlusOuMoinsMode1();
+            rand.getRandomized();
         }
         if (nbMenu1 == 2){
             System.out.println("test2");

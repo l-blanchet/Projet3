@@ -23,8 +23,8 @@ public class PlusOuMoinsMode1 extends Randomizer {
         System.out.println("Vous avez sélectionné le mode 1, vous avez "+nbEssais+" essais, bonne chance !");
         for (int compteur =0 ; compteur<nbEssais;compteur++) {
             System.out.println(Arrays.toString(nbMystereDecoupe));
-            int exlegeek = 1;
-            exlegeek = exlegeek +1 ;
+            int compteurEssais = 0;
+            compteurEssais = compteurEssais +1 ;
             System.out.println("proposition:");
             Scanner sc = new Scanner(System.in);
             int essai = 0;
@@ -52,62 +52,66 @@ public class PlusOuMoinsMode1 extends Randomizer {
             for (int verificateur = 0 ; verificateur<proposition.length(); verificateur++){
                 String nbMystere;
                 nbMystere = nbMystereDecoupe[verificateur] ;
-                int test1 = Integer.parseInt(nbMystere);
+                int nbDecoupe = Integer.parseInt(nbMystere);
                 String proposition1 ;
                 proposition1 = propositionDecoupe[verificateur];
-                int test2 = Integer.parseInt(proposition1);
+                int propositioncut= Integer.parseInt(proposition1);
 
-                if (test2==test1){
+                if (propositioncut==nbDecoupe){
                     reponse[verificateur] = "=";
                 }
-                else if (test2<test1){
+                else if (propositioncut<nbDecoupe){
                     reponse[verificateur] = "-";
                 }
-                 else if (test2>test1 ){
+                 else if (propositioncut>nbDecoupe ){
                     reponse[verificateur] = "+";
                 }
 
             }
             System.out.println("réponse" + Arrays.toString(reponse));
 
-            if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1) || compteur == 6){
+            if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1) || compteur == 6) {
                 if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1)) {
-                    System.out.println("Vous avez gagné en " + exlegeek + " essais, Bravo!");
+                    System.out.println("Vous avez gagné en " + compteurEssais + " essais, Bravo!");
                 }
-                if (compteur == 6){
+                if (compteur == 6) {
                     System.out.println("Vous avez perdu");
                 }
+                int selection;
+                do {
                 System.out.println("veuillez sélectionner dans quelle section voulez vous aller");
                 System.out.println("1- Rejouer");
                 System.out.println("2- Menu Principal");
                 System.out.println("3- Quitter");
-                 sc = new Scanner(System.in);
-                int selection = 0;
-                try {
-                    selection = sc.nextInt();
-                } catch (InputMismatchException e) {
-                    System.out.println("veillez à ne rentrer que des chiffres !");
-                }
-                if (selection == 1){
-                    mode1();
-                }
-                else if (selection == 2){
-                    MainMenu main = new MainMenu();
-                    main.displayMenu();
-                }
-                else if (selection == 3){
-                    System.out.println("fermeture du programme ");
-                    System.exit(0);
-                }
-                else{
-                     sc = new Scanner(System.in);
+
+
+
+
+                    sc = new Scanner(System.in);
                     selection = 0;
                     try {
                         selection = sc.nextInt();
                     } catch (InputMismatchException e) {
                         System.out.println("veillez à ne rentrer que des chiffres !");
                     }
-                }
+                    if (selection == 1) {
+                        mode1();
+                    } else if (selection == 2) {
+                        MainMenu main = new MainMenu();
+                        main.displayMenu();
+                    } else if (selection == 3) {
+                        System.out.println("fermeture du programme ");
+                        System.exit(0);
+                    } /*else {
+                        sc = new Scanner(System.in);
+                        selection = 0;
+                        try {
+                            selection = sc.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("veillez à ne rentrer que des chiffres !");
+                        }
+                    }*/
+                } while ((selection < 1) || (selection > 3));
             }
 
 

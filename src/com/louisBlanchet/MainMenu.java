@@ -29,12 +29,9 @@ public class MainMenu {
 
 
         if (nbMenu == 1) {
-/*            menu1 menuspe = new menu1();
-            menuspe.specialMenu1();*/
-            Randomizer test = new Randomizer();
-            String[] length = test.getRandomized();
-            PlusOuMoinsMode1 rand = new PlusOuMoinsMode1();
-            rand.getRandomized();
+            Menu1 menuspe = new Menu1();
+            menuspe.specialMenu1();
+
         }
         else if (nbMenu == 2) {
             Menu2 menuspe = new Menu2();
