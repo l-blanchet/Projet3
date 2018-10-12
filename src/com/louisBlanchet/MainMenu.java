@@ -24,33 +24,27 @@ public class MainMenu {
 
         displaySelected(nbMenu);
     }
+
     public void displaySelected(int nbMenu) {
 
-
-
         if (nbMenu == 1) {
-            Menu1 menuspe = new Menu1();
-            menuspe.specialMenu1();
-
-        }
-        else if (nbMenu == 2) {
-            Menu2 menuspe = new Menu2();
-            menuspe.specialMenu2();
-        }
-        else if (nbMenu == 3) {
-            Menu3 menuspe = new Menu3();
-            menuspe.specialMenu3();
-        }
-        else if (nbMenu == 4) {
+            Menu1 menuSpe = new Menu1();
+            menuSpe.specialMenu1();
+        } else if (nbMenu == 2) {
+            Menu2 menuSpe = new Menu2();
+            menuSpe.specialMenu2();
+        } else if (nbMenu == 3) {
+            Menu3 menuSpe = new Menu3();
+            menuSpe.specialMenu3();
+        } else if (nbMenu == 4) {
             System.out.println("fermeture du programme ");
             System.exit(0);
-        }
-        else {
+        } else {
             System.out.println("vous n'avez pas sélectionné de valeur acceptée");
             displayMenu();
         }
 
-     }
+    }
 
 
 }
