@@ -26,7 +26,7 @@ public class Menu2 {
                 MainMenu main = new MainMenu();
                 main.displayMenu();
             }
-        }while (nbMenu2<1 ||nbMenu2>4)
+        }while (nbMenu2<1 ||nbMenu2>4);
         }
     }
-}
+
