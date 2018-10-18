@@ -119,28 +119,31 @@ public class PlusOuMoinsMode1 extends Randomizer {
     }
 
     private String proposition() {
-        String proposition = new String();
-        int essai = 0;
+        boolean checkeur = false;
+        String proposition ;
+        int essai ;
+        Scanner sc = new Scanner(System.in);
+
+        while (!checkeur) {
 
             System.out.println("proposition:");
-            Scanner sc = new Scanner(System.in);
 
             try {
-                essai = 0;
                 essai = sc.nextInt();
+                proposition = Integer.toString(essai);
+
+                if (proposition.length() < nbMysteredecoupe1.length || proposition.length() > nbMysteredecoupe1.length) {
+                    System.out.println("vous n'avez pas rentré le bon nombre de chiffres réesayez");
+                } else {
+                    checkeur = true;
+                }
             } catch (InputMismatchException e) {
                 System.out.println("veillez à ne rentrer que des chiffres !");
-                mode1();
+                checkeur = false;
             }
 
-            proposition = Integer.toString(essai);
-
-            if (proposition.length() < nbMysteredecoupe1.length || proposition.length() > nbMysteredecoupe1.length) {
-                System.out.println("vous n'avez pas rentré le bon nombre de chiffres réesayez");
-                mode1();
-            }
-
-            return proposition;
+        }
+        return proposition;
 
     }
 }
