@@ -120,7 +120,7 @@ public class PlusOuMoinsMode1 extends Randomizer {
 
     private String proposition() {
         boolean checkeur = false;
-        String proposition ;
+        String proposition = null;
         int essai ;
         Scanner sc = new Scanner(System.in);
 
