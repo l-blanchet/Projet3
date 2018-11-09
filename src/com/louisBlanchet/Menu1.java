@@ -20,7 +20,7 @@ public class Menu1 {
                 rand.getRandomized();
             }
             else if (nbMenu1 == 2) {
-                PlusOuMoinsMode2 c = new PlusOuMoinsMode2();
+                PlusOuMoinsMode2 c = new PlusOuMoinsMode2(4);
                 c.recupNbMystère();
             }
             else if (nbMenu1 == 3) {
