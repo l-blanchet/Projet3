@@ -3,7 +3,6 @@ package com.louisBlanchet;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.math.*;
 
 public class PlusOuMoinsMode2 {
 
@@ -12,6 +11,9 @@ public class PlusOuMoinsMode2 {
     private String[] reponse = {"=","=","=","="};
     private int lenght = 4;
     private int compteur =0;
+    String signe1;
+    private int boucleAlgo =4;
+    int chiffreCourantTest;
 
     public PlusOuMoinsMode2(int lenght) {
         this.lenght = lenght;
@@ -42,23 +44,29 @@ public class PlusOuMoinsMode2 {
             nbMystereDecoupe[i] = decoupage;
         }
         System.out.println(Arrays.toString(nbMystereDecoupe));
+        this.mode2();
+        return nbMystereDecoupe;
 
-        for ( compteur = 0; compteur < 5; compteur++) {
+    }
+    private void mode2(){
+        do {
             //todo afficher la valeur par défaut [5,5,5,5]
             if (compteur == 0) {
+                compteur = compteur+1;
                 this.affichePropositionParDefaut();
+                this.saisieUserReponse();
             }
-            else{
-            this.nbPropose();
+            else {
+                this.nbPropose();
             }
-            //todo faire saisir à l'utilisateur les "+" et les "-"
-            this.saisieUserReponse();
-            //todo verification de victoire /defaite /continuer
-            //todo si continuer relancer un tour si besoin
-            //todo si victoire/défaite afficher le menu de fin de jeu
+                //todo faire saisir à l'utilisateur les "+" et les "-"
+                this.saisieUserReponse();
+                //todo verification de victoire /defaite /continuer
+                //todo si continuer relancer un tour si besoin
+                //todo si victoire/défaite afficher le menu de fin de jeu
 
-        }
-        return nbMystereDecoupe;
+        }while (compteur<5);
+
 
     }
 
@@ -81,76 +89,90 @@ public class PlusOuMoinsMode2 {
             String decoupage = reponseNonDecoupe.substring(i, i + 1);
             reponse[i] = decoupage;
         }
+        chiffreCourantTest = 0;
         System.out.println(Arrays.toString(reponse));
         System.out.println(Arrays.toString(nbPropose));
         System.out.println("test réussi");
         System.out.println(compteur);
+
+        this.mode2();
     }
 
     private void affichePropositionParDefaut() {
 
         System.out.println(Arrays.toString(nbPropose));
-        compteur = compteur+1;
-
     }
-
+    int chiffre;
 
     public String[] nbPropose() {
         nbProposePrecedent = nbPropose;
         int test = lenght-1 ;
+        int boucletest = 0;
+
+
 
             for (int boucle = (test); boucle >= 0; boucle--) {
-                int chiffreprec = Integer.parseInt(String.valueOf(nbProposePrecedent[boucle]));
-                String signe1 = String.valueOf(reponse[boucle]);
-                int chiffre = proposechiffre(0, chiffreprec, signe1);
+                int chiffreprec = Integer.parseInt(String.valueOf(nbProposePrecedent[boucletest]));
 
+                signe1 = String.valueOf(reponse[boucletest]);
+                boucletest = boucletest +1;
+                chiffre = proposechiffre(0, chiffreprec, signe1);
+                System.out.println(chiffre);
 
 
             }
-
+        String chiffreString = Integer.toString(chiffre);
+        for (int i = 0; i < chiffreString.length(); i++) {
+            String decoupage = chiffreString.substring(i, i + 1);
+            nbPropose[i] = decoupage;
+        }
+        boucleAlgo = 4;
         return nbPropose ;
 
+
     }
+
 
 
 
 
     public int proposechiffre(int chiffreCourant, int chiffrePrecedent, String signe) {
-        int valeurMax = 9;
+        int valeurMax = 10;
         int valeurMin = 1;
         int resultat = 0;
-        int boucle =3;
-        for (int i = 0; i<=3 ; i++){
-             boucle = boucle-1;
 
-        }
 
-        if (chiffrePrecedent == 3 && signe.equals("+")) {
+
+
+
+
+        if (chiffrePrecedent == 3 && signe1.equals("+")) {
             valeurMax = 5;
         }
 
-        if (chiffrePrecedent == 7 && signe.equals("-")) {
+        if (chiffrePrecedent == 7 && signe1.equals("-")) {
             valeurMin = 5;
         }
-        if (signe.equals("=")){
+        if (signe1.equals("=")){
             resultat = chiffrePrecedent;
+            boucleAlgo--;
         }
 
-        if (signe.equals("+")) {
+        if (signe1.equals("+")) {
             resultat = ((chiffrePrecedent + valeurMax) / 2);
             valeurMax = 9;
-            boucle = boucle -1;
+            boucleAlgo--;
 
         }
-        if (signe.equals("-")) {
+        if (signe1.equals("-")) {
             resultat = ((chiffrePrecedent + valeurMin) / 2);
             valeurMin = 1;
-            boucle = boucle-1;
+            boucleAlgo--;
         }
 
-        int chiffreCourantPartiel = (int) (resultat*(Math.pow (10,boucle)));
-        chiffreCourant = chiffreCourantPartiel + chiffreCourant;
-       
+        int chiffreCourantPartiel = (int) (resultat*(Math.pow (10, boucleAlgo)));
+        chiffreCourantTest = chiffreCourantPartiel + chiffreCourantTest;
+        chiffreCourant = chiffreCourantTest;
         return chiffreCourant;
 
     }
