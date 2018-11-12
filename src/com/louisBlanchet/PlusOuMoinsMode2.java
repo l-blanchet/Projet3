@@ -3,6 +3,7 @@ package com.louisBlanchet;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.math.*;
 
 public class PlusOuMoinsMode2 {
 
@@ -47,7 +48,9 @@ public class PlusOuMoinsMode2 {
             if (compteur == 0) {
                 this.affichePropositionParDefaut();
             }
+            else{
             this.nbPropose();
+            }
             //todo faire saisir à l'utilisateur les "+" et les "-"
             this.saisieUserReponse();
             //todo verification de victoire /defaite /continuer
@@ -79,28 +82,33 @@ public class PlusOuMoinsMode2 {
             reponse[i] = decoupage;
         }
         System.out.println(Arrays.toString(reponse));
+        System.out.println(Arrays.toString(nbPropose));
         System.out.println("test réussi");
+        System.out.println(compteur);
     }
 
     private void affichePropositionParDefaut() {
 
         System.out.println(Arrays.toString(nbPropose));
+        compteur = compteur+1;
 
     }
 
 
     public String[] nbPropose() {
         nbProposePrecedent = nbPropose;
+        int test = lenght-1 ;
 
-
-            for (int boucle = lenght - 1; boucle == 0; boucle--) {
+            for (int boucle = (test); boucle >= 0; boucle--) {
                 int chiffreprec = Integer.parseInt(String.valueOf(nbProposePrecedent[boucle]));
                 String signe1 = String.valueOf(reponse[boucle]);
                 int chiffre = proposechiffre(0, chiffreprec, signe1);
-                //todo mettre un return nbproposé
+
+
 
             }
-        return null ;//todo à terminer
+
+        return nbPropose ;
 
     }
 
@@ -111,6 +119,11 @@ public class PlusOuMoinsMode2 {
         int valeurMax = 9;
         int valeurMin = 1;
         int resultat = 0;
+        int boucle =3;
+        for (int i = 0; i<=3 ; i++){
+             boucle = boucle-1;
+
+        }
 
         if (chiffrePrecedent == 3 && signe.equals("+")) {
             valeurMax = 5;
@@ -119,17 +132,26 @@ public class PlusOuMoinsMode2 {
         if (chiffrePrecedent == 7 && signe.equals("-")) {
             valeurMin = 5;
         }
+        if (signe.equals("=")){
+            resultat = chiffrePrecedent;
+        }
 
         if (signe.equals("+")) {
             resultat = ((chiffrePrecedent + valeurMax) / 2);
             valeurMax = 9;
+            boucle = boucle -1;
 
         }
         if (signe.equals("-")) {
             resultat = ((chiffrePrecedent + valeurMin) / 2);
             valeurMin = 1;
+            boucle = boucle-1;
         }
-        return resultat;
+
+        int chiffreCourantPartiel = (int) (resultat*(Math.pow (10,boucle)));
+        chiffreCourant = chiffreCourantPartiel + chiffreCourant;
+       
+        return chiffreCourant;
 
     }
 }
