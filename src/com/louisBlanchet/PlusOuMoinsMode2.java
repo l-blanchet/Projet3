@@ -22,7 +22,18 @@ public class PlusOuMoinsMode2 {
         this.lenght = lenght;
     }
 
-    public String[] recupNbMystère() {
+    public void main(){
+        boolean jouerEncore ;
+        //todo tant que je veux jouer au mode 2
+        do {
+             jouerEncore = this.recupNbMystère();
+        }while (jouerEncore );
+        //todo jouer au mode 2
+        // TODO: 15/11/2018 si l user veux retourner au menu
+        //todo alors retourner au menu
+    }
+
+    public boolean recupNbMystère() {
         int lenght = 4;
         int nbEssais = 5;
         int nbMystere;
@@ -42,30 +53,31 @@ public class PlusOuMoinsMode2 {
             String decoupage = nbMystere1.substring(i, i + 1);
             nbMystereDecoupe[i] = decoupage;
         }
-        this.mode2();
-        return nbMystereDecoupe;
+        boolean jouerEncore;
+        jouerEncore = this.mode2();
+        return jouerEncore;
 
     }
 
-    private void mode2() {
+    private boolean mode2() {
+        boolean jouerEncore;
         do {
             if (compteur == 0) {
 
                 this.affichePropositionParDefaut();
                 compteur = compteur + 1;
-                // System.out.println(Arrays.toString(nbPropose));
                 this.saisieUserReponse();
             }
             this.nbPropose();
             compteur = compteur + 1;
 
             this.saisieUserReponse();
-            //todo verification de victoire /defaite /continuer
             this.verification();
-            //todo si continuer relancer un tour si besoin
-            //todo si victoire/défaite afficher le menu de fin de jeu
+            jouerEncore = this.verification();
+            return jouerEncore;
 
-        } while (compteur <= 5);
+            //todo verification doit retourner un true ou false pour dire s'il a trouve soit il doit relancer un tour
+        } while (compteur <= 5 || jouerEncore == false);//todo sortir s'il a trouvé
 
 
     }
@@ -80,8 +92,7 @@ public class PlusOuMoinsMode2 {
         String reponseNonDecoupe = null;
         System.out.println(Arrays.toString(reponse));
         System.out.println(Arrays.toString(nbPropose));
-        System.out.println(Arrays.toString(nbMystereDecoupe));
-        System.out.println(compteur);
+        System.out.println(Arrays.toString(this.nbMystereDecoupe));
         do {
             System.out.println("Veuillez rentrer des + et des - en vous basant sur la reponse de l ordinateur par rapport à la votre ");
             Scanner sc = new Scanner(System.in);
@@ -104,15 +115,27 @@ public class PlusOuMoinsMode2 {
         this.verification();
     }
 
-    private void verification() {
+    private boolean verification() {
+        //todo retourner true s il a trouve et false s'il n a pas trouvé
         if (Arrays.equals(nbPropose, nbMystereDecoupe)) {
-            System.out.println("vous avez perdu");
+
+            System.out.println("L'ordinateur a trouvé en " +compteur+ " coups , Vous avez perdu !") ;
+            boolean jouerEncore;
+            jouerEncore =this.rejouer();
+            return jouerEncore;
+
 
         } else if (compteur >= 5) {
             System.out.println("Vous avez gagné !");
-        } else {
-            this.mode2();
+            boolean jouerEncore;
+            jouerEncore =this.rejouer();
+            return jouerEncore;
+
         }
+        return false;
+    }
+
+    private boolean rejouer() {
         int selection;
         do {
             System.out.println("veuillez sélectionner dans quelle section voulez vous aller");
@@ -128,16 +151,16 @@ public class PlusOuMoinsMode2 {
                 System.out.println("veillez à ne rentrer que des chiffres !");
             }
             if (selection == 1) {
-                recupNbMystère();
+                return true;
             } else if (selection == 2) {
-                MainMenu main = new MainMenu();
-                main.displayMenu();
+                return false;
             } else if (selection == 3) {
                 System.out.println("fermeture du programme ");
                 System.exit(0);
             }
 
         } while ((selection < 1) || (selection > 3));
+        return false;
     }
 
     public String[] nbPropose() {
@@ -187,7 +210,7 @@ public class PlusOuMoinsMode2 {
 
         if (signe1.equals("+")) {
             resultat = ((chiffrePrecedent + valeurMax) / 2);
-            valeurMax = 9;
+            valeurMax = 10;
             boucleAlgo--;
 
         }
