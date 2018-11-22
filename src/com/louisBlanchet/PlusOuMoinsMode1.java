@@ -1,6 +1,8 @@
 package com.louisBlanchet;
 
-
+/*boolean jouerEncore;
+        jouerEncore =this.rejouer();
+        return jouerEncore;*/
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,13 +15,17 @@ public class PlusOuMoinsMode1 extends Randomizer {
 
 
     public String[] getRandomized() {
+        boolean jouerEncore;
+        do {
 
-        super.getRandomized();
-        mode1();
-        return new String[]{"test"};
+
+            super.getRandomized();
+            mode1();
+            return new String[]{"test"};
+        }while (jouerEncore == true);
     }
 
-    public void mode1() {
+    public boolean mode1() {
         Randomizer test = new Randomizer();
         nbMystereDecoupe = test.getRandomized();
         nbMysteredecoupe1 = nbMystereDecoupe;
@@ -28,22 +34,38 @@ public class PlusOuMoinsMode1 extends Randomizer {
         for (int compteur = 0; compteur < nbEssais; compteur++) {
             essais(compteur);
         }
+        boolean jouerEncore ;
+        int compteur = 0;
+        do {
+            essais(nbEssais);
+            compteur = compteur +1;
+            jouerEncore = this.essais(compteur);
+        }while (compteur != nbEssais || jouerEncore == true );
+        return jouerEncore;
+
     }
 
-    private void essais(int compteur) {
+    private boolean essais(int compteur) {
         System.out.println(Arrays.toString(nbMystereDecoupe));
         System.out.println(compteur);
         String[] propositionDecoupe = essai();
-        Scanner sc;
-
+        boolean verif = false;
         if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1) || compteur == 6) {
             messageVictoire(compteur, propositionDecoupe);
+            verif = true;
         }
         System.out.println(Arrays.toString(propositionDecoupe));
+        if (verif == true) {
+            boolean jouerEncore;
+            jouerEncore = this.messageVictoire(compteur, propositionDecoupe);
+            return jouerEncore;
+        }
+        return Boolean.parseBoolean(null);
     }
 
-    private void messageVictoire(int compteur, String[] propositionDecoupe) {
+    private boolean messageVictoire(int compteur, String[] propositionDecoupe) {
         Scanner sc;
+        boolean rejouer;
         if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1)) {
             System.out.println("Vous avez gagné en " + compteur + " essais, Bravo!");
         }
@@ -65,15 +87,15 @@ public class PlusOuMoinsMode1 extends Randomizer {
                 System.out.println("veillez à ne rentrer que des chiffres !");
             }
             if (selection == 1) {
-                mode1();
+                return true ;
             } else if (selection == 2) {
-                MainMenu main = new MainMenu();
-                main.displayMenu();
+                return false ;
             } else if (selection == 3) {
                 System.out.println("fermeture du programme ");
                 System.exit(0);
             }
 
+            return true ;
         } while ((selection < 1) || (selection > 3));
     }
 

@@ -16,6 +16,7 @@ public class PlusOuMoinsMode2 {
     private int lenght = 4;
     private int compteur = 0;
     private int boucleAlgo = 4;
+    private boolean verif = false ;
 
 
     public PlusOuMoinsMode2(int lenght) {
@@ -60,7 +61,7 @@ public class PlusOuMoinsMode2 {
     }
 
     private boolean mode2() {
-        boolean jouerEncore;
+        boolean jouerEncore = false;
         do {
             if (compteur == 0) {
 
@@ -73,12 +74,16 @@ public class PlusOuMoinsMode2 {
 
             this.saisieUserReponse();
             this.verification();
-            jouerEncore = this.verification();
-            return jouerEncore;
+            if (verif == true) {
+                jouerEncore = this.verification();
+                return jouerEncore;
+            }
+                
+
 
             //todo verification doit retourner un true ou false pour dire s'il a trouve soit il doit relancer un tour
         } while (compteur <= 5 || jouerEncore == false);//todo sortir s'il a trouvé
-
+        return false;
 
     }
 
@@ -132,7 +137,7 @@ public class PlusOuMoinsMode2 {
             return jouerEncore;
 
         }
-        return false;
+        return true;
     }
 
     private boolean rejouer() {

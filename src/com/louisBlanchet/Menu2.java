@@ -3,8 +3,9 @@ package com.louisBlanchet;
 import java.util.Scanner;
 
 public class Menu2 {
-    public void specialMenu2 (){
+    public boolean specialMenu2 (){
         int nbMenu2;
+        boolean retourMenu;
         do {
             System.out.println("Choisissez le mode de jeu voulu");
             System.out.println("1- Mode Challenger");
@@ -23,10 +24,11 @@ public class Menu2 {
                 System.out.println("test3");
             }
             if (nbMenu2 == 4) {
-                MainMenu main = new MainMenu();
-                main.displayMenu();
+                return true;
             }
         }while (nbMenu2<1 ||nbMenu2>4);
-        }
+        return false;
+    }
+
     }
 

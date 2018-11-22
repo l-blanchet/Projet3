@@ -3,7 +3,8 @@ package com.louisBlanchet;
 import java.util.Scanner;
 
 public class Menu3 {
-    public void specialMenu3 (){
+    public boolean specialMenu3 (){
+        boolean retourMenu;
         System.out.println("Voici les explications des différents modes " );
         System.out.println("Mode Challenger : Vous devez deviner le code/combinaison de l'ordinateur ");
         System.out.println("Mode Défenseur : Vous devez protéger votre code/combinaison à l'ordinateur ");
@@ -14,8 +15,8 @@ public class Menu3 {
         int nbMenu3 = sc.nextInt();
 
         if (nbMenu3 == 1){
-            MainMenu main = new MainMenu();
-            main.displayMenu();
+            return true;
         }
+        return false;
     }
 }
