@@ -11,6 +11,8 @@ public class PlusOuMoinsMode1 extends Randomizer {
 
     private String[] nbMystereDecoupe;
     private String[] nbMysteredecoupe1;
+    int compteur =0;
+
 
 
 
@@ -23,35 +25,43 @@ public class PlusOuMoinsMode1 extends Randomizer {
             mode1();
             return new String[]{"test"};
         }while (jouerEncore == true);
+
     }
 
     public boolean mode1() {
-        Randomizer test = new Randomizer();
-        nbMystereDecoupe = test.getRandomized();
-        nbMysteredecoupe1 = nbMystereDecoupe;
+        boolean jouerEncore = true ;
+
+
         int nbEssais = 7;
         System.out.println("Vous avez sélectionné le mode 1, vous avez " + nbEssais + " essais, bonne chance !");
-        for (int compteur = 0; compteur < nbEssais; compteur++) {
-            essais(compteur);
-        }
-        boolean jouerEncore ;
-        int compteur = 0;
+
+
         do {
+            if(compteur ==0  && jouerEncore == true ){
+                randomizer();
+            }
             essais(nbEssais);
-            compteur = compteur +1;
             jouerEncore = this.essais(compteur);
-        }while (compteur != nbEssais || jouerEncore == true );
+        }while ( jouerEncore );
         return jouerEncore;
 
     }
+    public boolean randomizer(){
+        Randomizer test = new Randomizer();
+        nbMystereDecoupe = test.getRandomized();
+        nbMysteredecoupe1 = nbMystereDecoupe;
+        return true ;
+    }
 
-    private boolean essais(int compteur) {
+
+    private boolean essais( int compteur1) {
+        compteur1 = compteur;
         System.out.println(Arrays.toString(nbMystereDecoupe));
-        System.out.println(compteur);
+        compteur = compteur + 1 ;
+        System.out.println(compteur1);
         String[] propositionDecoupe = essai();
         boolean verif = false;
         if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1) || compteur == 6) {
-            messageVictoire(compteur, propositionDecoupe);
             verif = true;
         }
         System.out.println(Arrays.toString(propositionDecoupe));
@@ -60,17 +70,22 @@ public class PlusOuMoinsMode1 extends Randomizer {
             jouerEncore = this.messageVictoire(compteur, propositionDecoupe);
             return jouerEncore;
         }
-        return Boolean.parseBoolean(null);
+        return true ;
     }
 
-    private boolean messageVictoire(int compteur, String[] propositionDecoupe) {
+    private boolean messageVictoire(int compteur2, String[] propositionDecoupe) {
         Scanner sc;
+        compteur2 = compteur;
         boolean rejouer;
         if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1)) {
             System.out.println("Vous avez gagné en " + compteur + " essais, Bravo!");
+            randomizer();
+            compteur = 0;
         }
         if (compteur == 6) {
             System.out.println("Vous avez perdu");
+            randomizer();
+            compteur = 0;
         }
         int selection;
         do {
@@ -95,7 +110,7 @@ public class PlusOuMoinsMode1 extends Randomizer {
                 System.exit(0);
             }
 
-            return true ;
+            return false ;
         } while ((selection < 1) || (selection > 3));
     }
 
@@ -107,7 +122,7 @@ public class PlusOuMoinsMode1 extends Randomizer {
         return propositionDecoupe;
     }
 
-    private void verification(String proposition, String[] propositionDecoupe) {
+    private boolean verification(String proposition, String[] propositionDecoupe) {
         String[] reponse = new String[proposition.length()];
 
         for (int verificateur = 0; verificateur < proposition.length(); verificateur++) {
@@ -128,6 +143,7 @@ public class PlusOuMoinsMode1 extends Randomizer {
 
         }
         System.out.println("réponse" + Arrays.toString(reponse));
+        return true;
     }
 
     private String[] decoupage(String proposition) {

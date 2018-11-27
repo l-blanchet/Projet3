@@ -9,32 +9,36 @@ public class PlusOuMoinsMode2 {
     String signe1;
     int chiffreCourantTest;
     int chiffre;
-    private String[] nbPropose = {"5", "5", "5", "5"};
+    private String[] nbPropose;
     private String[] nbProposePrecedent;
-    private String[] reponse = {"=", "=", "=", "="};
-    private String[] nbMystereDecoupe = {"1", "1", "1", "1"};
-    private int lenght = 4;
-    private int compteur = 0;
-    private int boucleAlgo = 4;
-    private boolean verif = false ;
+    private String[] reponse;
+    private String[] nbMystereDecoupe;
+    private int lenght;
+    private int compteur;
+    private int boucleAlgo;
+    private boolean verif;
 
 
     public PlusOuMoinsMode2(int lenght) {
         this.lenght = lenght;
     }
 
-    public void main(){
-        boolean jouerEncore ;
-        //todo tant que je veux jouer au mode 2
+    public void main() {
+        boolean jouerEncore;
         do {
-             jouerEncore = this.recupNbMystère();
-        }while (jouerEncore );
-        //todo jouer au mode 2
-        // TODO: 15/11/2018 si l user veux retourner au menu
-        //todo alors retourner au menu
+            jouerEncore = this.recupNbMystère();
+        } while (jouerEncore);
     }
 
     public boolean recupNbMystère() {
+        nbPropose = new String[]{"5", "5", "5", "5"};
+        reponse = new String[]{"=", "=", "=", "="};
+        nbMystereDecoupe = new String[]{"1", "1", "1", "1"};
+        lenght = 4;
+        compteur = 0;
+        boucleAlgo = 4;
+        verif = false;
+
         int lenght = 4;
         int nbEssais = 5;
         int nbMystere;
@@ -66,24 +70,20 @@ public class PlusOuMoinsMode2 {
             if (compteur == 0) {
 
                 this.affichePropositionParDefaut();
-                compteur = compteur + 1;
-                this.saisieUserReponse();
             }
             this.nbPropose();
             compteur = compteur + 1;
 
             this.saisieUserReponse();
-            this.verification();
-            if (verif == true) {
-                jouerEncore = this.verification();
-                return jouerEncore;
-            }
-                
+
+            jouerEncore = this.verification();
 
 
             //todo verification doit retourner un true ou false pour dire s'il a trouve soit il doit relancer un tour
-        } while (compteur <= 5 || jouerEncore == false);//todo sortir s'il a trouvé
-        return false;
+        } while (jouerEncore == false);//todo sortir s'il a trouvé
+        jouerEncore = this.rejouer();
+        return jouerEncore;
+
 
     }
 
@@ -116,28 +116,21 @@ public class PlusOuMoinsMode2 {
         }
         chiffreCourantTest = 0;
 
-
-        this.verification();
     }
 
     private boolean verification() {
         //todo retourner true s il a trouve et false s'il n a pas trouvé
         if (Arrays.equals(nbPropose, nbMystereDecoupe)) {
 
-            System.out.println("L'ordinateur a trouvé en " +compteur+ " coups , Vous avez perdu !") ;
-            boolean jouerEncore;
-            jouerEncore =this.rejouer();
-            return jouerEncore;
+            System.out.println("L'ordinateur a trouvé en " + compteur + " coups , Vous avez perdu !");
+            return true;
 
 
         } else if (compteur >= 5) {
             System.out.println("Vous avez gagné !");
-            boolean jouerEncore;
-            jouerEncore =this.rejouer();
-            return jouerEncore;
-
+            return true ;
         }
-        return true;
+        return false;
     }
 
     private boolean rejouer() {

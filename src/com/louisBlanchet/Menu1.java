@@ -22,7 +22,7 @@ public class Menu1 {
             }
             else if (nbMenu1 == 2) {
                 PlusOuMoinsMode2 c = new PlusOuMoinsMode2(4);
-                c.recupNbMystère();
+                c.main();
             }
             else if (nbMenu1 == 3) {
                 System.out.println("test3");

@@ -27,7 +27,7 @@ public class MainMenu {
         displaySelected(nbMenu);
     }
 
-    public void displaySelected(int nbMenu) {
+    public boolean displaySelected(int nbMenu) {
 
         if (nbMenu == 1) {
             Menu1 menuSpe = new Menu1();
@@ -42,7 +42,7 @@ public class MainMenu {
             System.out.println("fermeture du programme ");
             System.exit(0);
         }
-
+        return true ;
     }
 
 
