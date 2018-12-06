@@ -1,20 +1,23 @@
 package com.louisBlanchet;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import static java.lang.Math.*;
 
 public class Randomizer {
 
-
-    public String[] getRandomized() {
-        int length = 4;
+    public String[] getRandomized(int lenght ) {
         double d = random();
-        d *= pow(10, length);
+        d *= pow(10, lenght);
         int n = (int) d;
         String nbMystere;
         nbMystere = Integer.toString(n);
 
 
-        while (nbMystere.length() < length) {
+        while (nbMystere.length() < lenght) {
             double random = random();
             random = random * 10;
             int random1 = (int) random;

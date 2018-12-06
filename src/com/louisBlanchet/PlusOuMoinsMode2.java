@@ -1,8 +1,12 @@
 package com.louisBlanchet;
 
+
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static java.lang.Math.pow;
+
 
 public class PlusOuMoinsMode2 {
 
@@ -17,6 +21,7 @@ public class PlusOuMoinsMode2 {
     private int compteur;
     private int boucleAlgo;
     private boolean verif;
+    boolean devMod;
 
 
     public PlusOuMoinsMode2(int lenght) {
@@ -31,19 +36,33 @@ public class PlusOuMoinsMode2 {
     }
 
     public boolean recupNbMystère() {
-        nbPropose = new String[]{"5", "5", "5", "5"};
-        reponse = new String[]{"=", "=", "=", "="};
-        nbMystereDecoupe = new String[]{"1", "1", "1", "1"};
-        lenght = 4;
+        Config configuration = new Config();
+        lenght = configuration.getLength();
+        devMod = configuration.isDevMod();
+
+        nbPropose = new String[lenght];
+        for (int i =0 ; i < lenght; i++){
+            nbPropose[i]="5";
+        }
+        reponse = new String[lenght];
+        for (int i =0 ; i < lenght; i++){
+            reponse[i]="=";
+        }
+        nbMystereDecoupe = new String[lenght];
+        for (int i =0 ; i < lenght; i++){
+            nbMystereDecoupe[i]="1";
+        }
+        System.out.println(Arrays.toString(nbMystereDecoupe));
         compteur = 0;
         boucleAlgo = 4;
         verif = false;
 
-        int lenght = 4;
-        int nbEssais = 5;
+
         int nbMystere;
+        int valeurMax = (int) pow(10,lenght-1);
         do {
-            System.out.println("vous avez sélectionné le mode 2 veuillez proposer un nombre supérieur à 1000");
+
+            System.out.println("vous avez sélectionné le mode 2 veuillez proposer un nombre supérieur à " +valeurMax);
             Scanner sc = new Scanner(System.in);
             nbMystere = 0;
             try {
@@ -51,7 +70,7 @@ public class PlusOuMoinsMode2 {
             } catch (InputMismatchException e) {
                 System.out.println("veillez à ne rentrer que des chiffres !");
             }
-        } while (nbMystere < 1000);
+        } while (nbMystere < valeurMax);
         String nbMystere1 = Integer.toString(nbMystere);
 
         for (int i = 0; i < nbMystere1.length(); i++) {
@@ -98,6 +117,7 @@ public class PlusOuMoinsMode2 {
         System.out.println(Arrays.toString(reponse));
         System.out.println(Arrays.toString(nbPropose));
         System.out.println(Arrays.toString(this.nbMystereDecoupe));
+
         do {
             System.out.println("Veuillez rentrer des + et des - en vous basant sur la reponse de l ordinateur par rapport à la votre ");
             Scanner sc = new Scanner(System.in);
@@ -181,7 +201,7 @@ public class PlusOuMoinsMode2 {
             String decoupage = chiffreString.substring(i, i + 1);
             nbPropose[i] = decoupage;
         }
-        boucleAlgo = 4;
+        boucleAlgo = lenght;
         return nbPropose;
 
 
@@ -218,7 +238,7 @@ public class PlusOuMoinsMode2 {
             boucleAlgo--;
         }
 
-        int chiffreCourantPartiel = (int) (resultat * (Math.pow(10, boucleAlgo)));
+        int chiffreCourantPartiel = (int) (resultat * (pow(10, boucleAlgo)));
         chiffreCourantTest = chiffreCourantPartiel + chiffreCourantTest;
         chiffreCourant = chiffreCourantTest;
         return chiffreCourant;

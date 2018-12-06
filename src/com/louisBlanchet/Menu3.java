@@ -14,9 +14,6 @@ public class Menu3 {
         Scanner sc = new Scanner(System.in);
         int nbMenu3 = sc.nextInt();
 
-        if (nbMenu3 == 1){
-            return true;
-        }
-        return false;
+        return nbMenu3 == 1;
     }
 }
