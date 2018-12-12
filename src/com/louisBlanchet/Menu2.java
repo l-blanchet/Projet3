@@ -9,8 +9,8 @@ import java.util.Scanner;
  */
 public class Menu2 {
     /**
-     * méthodde affichant le menu de sélection du mode de jeu du master minf$d et enegistrant la sélectionde l'utilisateur pour l'emmener au mode de jeu désiré
-     * @return retourne le choix de l'utilisateur dans le menu de fin de jeu 
+     * méthode affichant le menu de sélection du mode de jeu du master mind et enregistrant la sélection de l'utilisateur pour l'emmener au mode de jeu désiré
+     * @return retourne le choix de l'utilisateur dans le menu de fin de jeu
      */
     public boolean specialMenu2 (){
         Logger logger = Logger.getLogger(Menu2.class);
