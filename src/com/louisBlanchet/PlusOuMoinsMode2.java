@@ -1,14 +1,20 @@
 package com.louisBlanchet;
 
 
+import org.apache.log4j.Logger;
+
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static java.lang.Math.pow;
 
+/**
+ * cette classe joue le plus ou moins en mode défenseur
+ */
 
 public class PlusOuMoinsMode2 {
+    private Logger logger = Logger.getLogger(PlusOuMoinsMode2.class);
 
     String signe1;
     int chiffreCourantTest;
@@ -24,18 +30,27 @@ public class PlusOuMoinsMode2 {
     boolean devMod;
 
 
-    public PlusOuMoinsMode2(int lenght) {
-        this.lenght = lenght;
-    }
+ //   public PlusOuMoinsMode2(int lenght) {
+    //    this.lenght = lenght;
+  //  }
 
+    /**
+     * méthode qui lance le jeu
+     */
     public void main() {
         boolean jouerEncore;
         do {
-            jouerEncore = this.recupNbMystère();
+            logger.info("lancement d'un tour");
+            jouerEncore = this.recupNbMystere();
         } while (jouerEncore);
     }
 
-    public boolean recupNbMystère() {
+    /**
+     * méthode se lancant à chaque nouvelle partie met les valeurs principales à zéro et demande un nombre mystère
+     * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
+     */
+    public boolean recupNbMystere() {
+        logger.info("mise à zéro des valeurs");
         Config configuration = new Config();
         lenght = configuration.getLength();
         devMod = configuration.isDevMod();
@@ -52,7 +67,6 @@ public class PlusOuMoinsMode2 {
         for (int i =0 ; i < lenght; i++){
             nbMystereDecoupe[i]="1";
         }
-        System.out.println(Arrays.toString(nbMystereDecoupe));
         compteur = 0;
         boucleAlgo = 4;
         verif = false;
@@ -61,7 +75,7 @@ public class PlusOuMoinsMode2 {
         int nbMystere;
         int valeurMax = (int) pow(10,lenght-1);
         do {
-
+            logger.info("sélectio du nombre mystère");
             System.out.println("vous avez sélectionné le mode 2 veuillez proposer un nombre supérieur à " +valeurMax);
             Scanner sc = new Scanner(System.in);
             nbMystere = 0;
@@ -83,9 +97,15 @@ public class PlusOuMoinsMode2 {
 
     }
 
+    /**
+     * cette méthode est le coeur de cette classe c'est elle qui est chargée de lancer les méthodes pour faire fonctionner le jeu
+     * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
+     */
     private boolean mode2() {
+
         boolean jouerEncore = false;
         do {
+            logger.info("lancement d'un tour");
             if (compteur == 0) {
 
                 this.affichePropositionParDefaut();
@@ -97,21 +117,26 @@ public class PlusOuMoinsMode2 {
 
             jouerEncore = this.verification();
 
-
-            //todo verification doit retourner un true ou false pour dire s'il a trouve soit il doit relancer un tour
-        } while (jouerEncore == false);//todo sortir s'il a trouvé
+        } while (jouerEncore == false);
         jouerEncore = this.rejouer();
         return jouerEncore;
 
 
     }
 
+    /**
+     * affiche la proposition par défaut lors du premier tour afin que dans les prochains tours il puisse s'appuyer sur des valeurs
+     */
     private void affichePropositionParDefaut() {
 
         System.out.println(Arrays.toString(nbPropose));
     }
 
+    /**
+     * cette méthode sert à demander à l'utilisateur une réponse en fonction de ce que l'ordinateur a proposé comme chiffre
+     */
     private void saisieUserReponse() {
+        logger.info("récupératon de la réponse utilisateur ");
         boolean testrecup = true;
         String reponseNonDecoupe = null;
         System.out.println(Arrays.toString(reponse));
@@ -138,8 +163,12 @@ public class PlusOuMoinsMode2 {
 
     }
 
+    /**
+     * cette méthode vérifie la proposition utilisateur et la proposition de l'ordinateur pour vérifier un éventuelle égalité
+     * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
+     */
     private boolean verification() {
-        //todo retourner true s il a trouve et false s'il n a pas trouvé
+        logger.info("comparaison proposition ordinateur et nombre mystère");
         if (Arrays.equals(nbPropose, nbMystereDecoupe)) {
 
             System.out.println("L'ordinateur a trouvé en " + compteur + " coups , Vous avez perdu !");
@@ -153,9 +182,14 @@ public class PlusOuMoinsMode2 {
         return false;
     }
 
+    /**
+     * cette méthode affiche le menu de sélection pour rejouer, revenir au menu principal ou quitter l'application
+     * @return retourne le choix de l'utilisateur pour savoir s'il veut rejouer ou pas
+     */
     private boolean rejouer() {
         int selection;
         do {
+            logger.info("affichage du menu de sélection ");
             System.out.println("veuillez sélectionner dans quelle section voulez vous aller");
             System.out.println("1- Rejouer");
             System.out.println("2- Menu Principal");
@@ -181,7 +215,12 @@ public class PlusOuMoinsMode2 {
         return false;
     }
 
+    /**
+     * cette méthode découpe le résultat obtenu de l'ordinateur et la réponse donné par l'utilisateur pour proposer de nouvelles valeurs en adéquation avec ces deux résultats
+     * @return retourne la nouvelle valeur que l'ordinateur proposera
+     */
     public String[] nbPropose() {
+        logger.info("analyse de la réponse utilisateur et proposition d'une réponse adéquate");
         nbProposePrecedent = nbPropose;
         int test = lenght - 1;
         int boucletest = 0;
@@ -207,8 +246,15 @@ public class PlusOuMoinsMode2 {
 
     }
 
-
+    /**
+     * cette méthode sert à proposer une nouvelle valeur à l'aide de deux valeurs : la proposition précedente et la réponse de l'utilisateur (en "+", "-" et "=" )
+     * @param chiffreCourant le chiffre qui sera proposé à l'issue de cette méthode
+     * @param chiffrePrecedent le chiffre proposé au tour précédent
+     * @param signe le signe donné par l'utilisateur
+     * @return le chiffre déduit par l'algorithme
+     */
     public int proposechiffre(int chiffreCourant, int chiffrePrecedent, String signe) {
+        logger.info("analyse de la réponse utilisateur et proposition d'une réponse adéquate chiffre par chiffre ");
         int valeurMax = 10;
         int valeurMin = 1;
         int resultat = 0;

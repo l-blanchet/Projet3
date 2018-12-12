@@ -1,18 +1,27 @@
 package com.louisBlanchet;
 
+import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+/**
+ * cette classe joue le plus ou moins en mode attaquant
+ */
 public class PlusOuMoinsMode1 extends Randomizer {
-
-    private String[] nbMystereDecoupe;
-    private String[] nbMysteredecoupe1;
     int compteur = 0;
     int lenght;
     boolean devMod;
 
+    private Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
+    private String[] nbMystereDecoupe;
+    private String[] nbMysteredecoupe1;
+
+    /**
+     * méthode servant pour récuperer les valeurs présentes dans le fichier de configuration et relancer une partie
+     *
+     * @return : retourne la valeur obtenue dans messageVictoire
+     */
     public boolean getRandomized() {
         Config configuration = new Config();
         lenght = configuration.getLength();
@@ -21,13 +30,19 @@ public class PlusOuMoinsMode1 extends Randomizer {
         boolean jouerEncore;
         do {
             jouerEncore = this.mode1();
+            logger.info("lancement du tour " + compteur);
         } while (jouerEncore == true);
         return jouerEncore;
     }
 
+    /**
+     * Méthode principale de cette classe c'est la méthode chargée de relancer chaque tour et de lancer le Randomizer quand le besoin est
+     *
+     * @return : retourne la valeur obtenue dans messageVictoire
+     */
     public boolean mode1() {
         boolean jouerEncore = true;
-
+        logger.info("lancement du jeu ou relance d'un tour");
         int nbEssais = 7;
         System.out.println("Vous avez sélectionné le mode 1, vous avez " + nbEssais + " essais, bonne chance !");
 
@@ -37,28 +52,41 @@ public class PlusOuMoinsMode1 extends Randomizer {
                 randomizer();
             }
             jouerEncore = this.essais(compteur);
-        } while (jouerEncore == true );
+        } while (jouerEncore == true);
         return jouerEncore;
 
     }
 
+    /**
+     * lance la classe Randomizer pour obtenir un nombre de longueur = lenght
+     *
+     * @return : retourne true pour continuer le do/while de mode1
+     */
     public boolean randomizer() {
+        logger.info("lancement de randomizer");
         Randomizer test = new Randomizer();
         nbMystereDecoupe = test.getRandomized(lenght);
         nbMysteredecoupe1 = nbMystereDecoupe;
+        logger.info("randomizer vient de renvoyer le nombre mystere" + nbMystereDecoupe);
         return true;
     }
 
-
+    /**
+     * cette méthode effectue un essai
+     *
+     * @param compteur1 : utilisé en tant qu'argument à la place de compteur, il sert aussi d'affichage du nombre de tours
+     * @return : sert à indiquer ce que l'utilisateur veut faire en renvoyant le booléen obtenu dans messageVictoire
+     */
     private boolean essais(int compteur1) {
         compteur1 = compteur;
         if (devMod == true) {
             System.out.println(Arrays.toString(nbMystereDecoupe));
         }
         compteur = compteur + 1;
-        System.out.println(compteur1);
+        System.out.println("tour effectué: " + compteur1);
         String[] propositionDecoupe = essai();
         boolean verif = false;
+        logger.info("verification de rencontre des conditions de victoire ou défaite");
         if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1) || compteur == 6) {
             verif = true;
         }
@@ -71,6 +99,13 @@ public class PlusOuMoinsMode1 extends Randomizer {
         return true;
     }
 
+    /**
+     * cette méthode affiche le message de victoire/défaite et affiche le menu de sélection
+     *
+     * @param compteur2          : équivalent du compteur  utilisé pour faire fonctionner la methode
+     * @param propositionDecoupe : la proposition de l'utilisateur decoupé dans une String[]
+     * @return : sert à indiquer ce que veux faire l'utilisateur après la partie; true pour relancer un niveau et false pour revenir au menu principal
+     */
     private boolean messageVictoire(int compteur2, String[] propositionDecoupe) {
         Scanner sc;
         compteur2 = compteur;
@@ -100,10 +135,13 @@ public class PlusOuMoinsMode1 extends Randomizer {
                 System.out.println("veillez à ne rentrer que des chiffres !");
             }
             if (selection == 1) {
+                logger.info("relancement du jeu");
                 return true;
             } else if (selection == 2) {
+                logger.info("retour au menu principal");
                 return false;
             } else if (selection == 3) {
+                logger.info("fermeture du programme");
                 System.out.println("fermeture du programme ");
                 System.exit(0);
             }
@@ -112,6 +150,11 @@ public class PlusOuMoinsMode1 extends Randomizer {
         } while ((selection < 1) || (selection > 3));
     }
 
+    /**
+     * cette méthode est le déclencheur du tour il appelle toutes les fonctions utiles pour le tour
+     *
+     * @return : retourne la proposition de l'utilisateur en String[]
+     */
     private String[] essai() {
         String proposition = proposition();
         String[] propositionDecoupe = decoupage(proposition);
@@ -120,7 +163,15 @@ public class PlusOuMoinsMode1 extends Randomizer {
         return propositionDecoupe;
     }
 
+    /**
+     * cette méthode est là où l'ordinateur compare le nombre mystère et la proposition et affiche une String composé de "+-=" correspondant
+     *
+     * @param proposition        : sert à obtenir la longueur de la proposition
+     * @param propositionDecoupe : pour récuperer le nombre proposé par l'utilisateur
+     * @return :renvoie true pour continuer le tour
+     */
     private boolean verification(String proposition, String[] propositionDecoupe) {
+        logger.info("vérification de la proposition de l'utilisateur");
         String[] reponse = new String[proposition.length()];
 
         for (int verificateur = 0; verificateur < proposition.length(); verificateur++) {
@@ -144,7 +195,14 @@ public class PlusOuMoinsMode1 extends Randomizer {
         return true;
     }
 
+    /**
+     * cette méthode sert à decouper la proposition et à la transformer en String[]
+     *
+     * @param proposition : obligatoire pour la découper
+     * @return :retourne la proposition de l'utilisateur en String[]
+     */
     private String[] decoupage(String proposition) {
+        logger.info("découpage de la proposition de l'utilisateur");
         String[] propositionDecoupe = new String[proposition.length()];
 
         for (int compteurtest = 0; compteurtest < proposition.length(); compteurtest++) {
@@ -154,6 +212,11 @@ public class PlusOuMoinsMode1 extends Randomizer {
         return propositionDecoupe;
     }
 
+    /**
+     * cette méthode demande à l'utilisateur d'entrer une proposition
+     *
+     * @return : retourne la proposition saisi par l'utilisateur
+     */
     private String proposition() {
         boolean checkeur = false;
         String proposition = null;
@@ -170,12 +233,14 @@ public class PlusOuMoinsMode1 extends Randomizer {
 
                 if (proposition.length() < nbMysteredecoupe1.length || proposition.length() > nbMysteredecoupe1.length) {
                     System.out.println("vous n'avez pas rentré le bon nombre de chiffres réesayez");
+                    logger.debug("la proposition ne comportait pas le bon nombre de chiffre");
                 } else {
                     checkeur = true;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("veillez à ne rentrer que des chiffres !");
                 checkeur = false;
+
             }
 
         }

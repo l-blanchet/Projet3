@@ -1,9 +1,20 @@
 package com.louisBlanchet;
 
+import org.apache.log4j.Logger;
+
 import java.util.Scanner;
 
+/**
+ * classe permettant la sélection du mode de jeu pour le mastermind
+ */
 public class Menu2 {
+    /**
+     * méthodde affichant le menu de sélection du mode de jeu du master minf$d et enegistrant la sélectionde l'utilisateur pour l'emmener au mode de jeu désiré
+     * @return retourne le choix de l'utilisateur dans le menu de fin de jeu 
+     */
     public boolean specialMenu2 (){
+        Logger logger = Logger.getLogger(Menu2.class);
+        logger.info("affichage du menu 2");
         int nbMenu2;
         boolean retourMenu;
         do {

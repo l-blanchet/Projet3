@@ -1,15 +1,17 @@
 package com.louisBlanchet;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import static java.lang.Math.pow;
+import static java.lang.Math.random;
 
-import static java.lang.Math.*;
-
+/**
+ * Classe créant un nombre aléatoire
+ */
 public class Randomizer {
 
     public String[] getRandomized(int lenght ) {
+        /**
+         * méthode générant un nombre aéatoire en utilisant la fonction random
+         */
         double d = random();
         d *= pow(10, lenght);
         int n = (int) d;

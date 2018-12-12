@@ -1,9 +1,16 @@
 package com.louisBlanchet;
 
+import org.apache.log4j.Logger;
+
 import java.util.Scanner;
 
+/**
+ * classe permettant l'affichage du menu d'information des modes de jeu
+ */
 public class Menu3 {
     public boolean specialMenu3 (){
+        Logger logger = Logger.getLogger(Menu3.class);
+        logger.info("affichage du menu 3");
         boolean retourMenu;
         System.out.println("Voici les explications des différents modes " );
         System.out.println("Mode Challenger : Vous devez deviner le code/combinaison de l'ordinateur ");

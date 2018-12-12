@@ -1,12 +1,22 @@
 package com.louisBlanchet;
 
 
+import org.apache.log4j.Logger;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * classe affichant le menu principal
+ */
 public class MainMenu {
+    /**
+     * méthode affichant le menu principal
+     */
+    private static Logger logger = Logger.getLogger(MainMenu.class);
     public void displayMenu() {
         boolean jouerEncore;
+        logger.info("affichage du menu");
        do {
            int nbMenu;
            do {
@@ -32,7 +42,11 @@ public class MainMenu {
     }
 
     public boolean displaySelected(int nbMenu) {
+        /**
+         * méthode récuperant le valeur correspondant au menu où l'utilisateur souhaite se rendre
+         */
         boolean jouerEncore = false;
+        logger.info("choix du menu " +nbMenu);
         if (nbMenu == 1) {
             Menu1 menuSpe = new Menu1();
             jouerEncore = menuSpe.specialMenu1();
