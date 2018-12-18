@@ -2,29 +2,22 @@ package com.louisBlanchet;
 
 import org.apache.log4j.Logger;
 
-import java.util.Scanner;
-
 /**
  * classe permettant la sélection du mode de jeu pour le mastermind
  */
-public class Menu2 {
+class Menu2 extends Menu {
     /**
      * méthode affichant le menu de sélection du mode de jeu du master mind et enregistrant la sélection de l'utilisateur pour l'emmener au mode de jeu désiré
      * @return retourne le choix de l'utilisateur dans le menu de fin de jeu
      */
-    public boolean specialMenu2 (){
+    boolean specialMenu2(){
         Logger logger = Logger.getLogger(Menu2.class);
         logger.info("affichage du menu 2");
         int nbMenu2;
         boolean retourMenu;
         do {
-            System.out.println("Choisissez le mode de jeu voulu");
-            System.out.println("1- Mode Challenger");
-            System.out.println("2- Mode Défenseur ");
-            System.out.println("3- Mode Hybride");
-            System.out.println("4- Retour");
-            Scanner sc = new Scanner(System.in);
-            nbMenu2 = sc.nextInt();
+
+            nbMenu2 = getNbMenu();
             if (nbMenu2 == 1) {
                 System.out.println("test1");
             }

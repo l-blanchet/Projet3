@@ -8,14 +8,14 @@ import java.util.Scanner;
 /**
  * cette classe joue le plus ou moins en mode attaquant
  */
-public class PlusOuMoinsMode1 extends Randomizer {
+public class PlusOuMoinsMode1 extends Game {
     int compteur = 0;
     int lenght;
     boolean devMod;
 
-    private Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
-    private String[] nbMystereDecoupe;
-    private String[] nbMysteredecoupe1;
+    protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
+    protected String[] nbMystereDecoupe;
+    protected String[] nbMysteredecoupe1;
 
     /**
      * méthode servant pour récuperer les valeurs présentes dans le fichier de configuration et relancer une partie
@@ -36,7 +36,7 @@ public class PlusOuMoinsMode1 extends Randomizer {
     }
 
     /**
-     * Méthode principale de cette classe c'est la méthode chargée de relancer chaque tour et de lancer le Randomizer quand le besoin est
+     * Méthode principale de cette classe c'est la méthode chargée de relancer chaque tour et de lancer le Game quand le besoin est
      *
      * @return : retourne la valeur obtenue dans messageVictoire
      */
@@ -58,13 +58,13 @@ public class PlusOuMoinsMode1 extends Randomizer {
     }
 
     /**
-     * lance la classe Randomizer pour obtenir un nombre de longueur = lenght
+     * lance la classe Game pour obtenir un nombre de longueur = lenght
      *
      * @return : retourne true pour continuer le do/while de mode1
      */
     public boolean randomizer() {
         logger.info("lancement de randomizer");
-        Randomizer test = new Randomizer();
+        Game test = new Game();
         nbMystereDecoupe = test.getRandomized(lenght);
         nbMysteredecoupe1 = nbMystereDecoupe;
         logger.info("randomizer vient de renvoyer le nombre mystere" + nbMystereDecoupe);
@@ -107,47 +107,18 @@ public class PlusOuMoinsMode1 extends Randomizer {
      * @return : sert à indiquer ce que veux faire l'utilisateur après la partie; true pour relancer un niveau et false pour revenir au menu principal
      */
     private boolean messageVictoire(int compteur2, String[] propositionDecoupe) {
-        Scanner sc;
+
         compteur2 = compteur;
         boolean rejouer;
         if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1)) {
             System.out.println("Vous avez gagné en " + compteur + " essais, Bravo!");
-            randomizer();
             compteur = 0;
         }
         if (compteur == 6) {
             System.out.println("Vous avez perdu");
-            randomizer();
             compteur = 0;
         }
-        int selection;
-        do {
-            System.out.println("veuillez sélectionner dans quelle section voulez vous aller");
-            System.out.println("1- Rejouer");
-            System.out.println("2- Menu Principal");
-            System.out.println("3- Quitter");
-
-            sc = new Scanner(System.in);
-            selection = 0;
-            try {
-                selection = sc.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("veillez à ne rentrer que des chiffres !");
-            }
-            if (selection == 1) {
-                logger.info("relancement du jeu");
-                return true;
-            } else if (selection == 2) {
-                logger.info("retour au menu principal");
-                return false;
-            } else if (selection == 3) {
-                logger.info("fermeture du programme");
-                System.out.println("fermeture du programme ");
-                System.exit(0);
-            }
-
-            return false;
-        } while ((selection < 1) || (selection > 3));
+        return rejouer();
     }
 
     /**
@@ -221,10 +192,10 @@ public class PlusOuMoinsMode1 extends Randomizer {
         boolean checkeur = false;
         String proposition = null;
         int essai;
-        Scanner sc = new Scanner(System.in);
+
 
         while (!checkeur) {
-
+            Scanner sc = new Scanner(System.in);
             System.out.println("proposition:");
 
             try {
@@ -238,6 +209,7 @@ public class PlusOuMoinsMode1 extends Randomizer {
                     checkeur = true;
                 }
             } catch (InputMismatchException e) {
+                logger.debug("l'utilisateur n'a pas rentré de chiffre");
                 System.out.println("veillez à ne rentrer que des chiffres !");
                 checkeur = false;
 

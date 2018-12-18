@@ -38,7 +38,7 @@ public class MainMenu {
            } while (nbMenu < 1 || nbMenu > 4);
 
            jouerEncore = this.displaySelected(nbMenu);
-       }while (jouerEncore == true);
+       }while (jouerEncore == false);
     }
 
     public boolean displaySelected(int nbMenu) {

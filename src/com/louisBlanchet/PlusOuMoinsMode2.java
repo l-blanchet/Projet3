@@ -13,7 +13,7 @@ import static java.lang.Math.pow;
  * cette classe joue le plus ou moins en mode défenseur
  */
 
-public class PlusOuMoinsMode2 {
+public class PlusOuMoinsMode2 extends Game {
     private Logger logger = Logger.getLogger(PlusOuMoinsMode2.class);
 
     String signe1;
@@ -179,39 +179,6 @@ public class PlusOuMoinsMode2 {
             System.out.println("Vous avez gagné !");
             return true ;
         }
-        return false;
-    }
-
-    /**
-     * cette méthode affiche le menu de sélection pour rejouer, revenir au menu principal ou quitter l'application
-     * @return retourne le choix de l'utilisateur pour savoir s'il veut rejouer ou pas
-     */
-    private boolean rejouer() {
-        int selection;
-        do {
-            logger.info("affichage du menu de sélection ");
-            System.out.println("veuillez sélectionner dans quelle section voulez vous aller");
-            System.out.println("1- Rejouer");
-            System.out.println("2- Menu Principal");
-            System.out.println("3- Quitter");
-
-            Scanner sc = new Scanner(System.in);
-            selection = 0;
-            try {
-                selection = sc.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("veillez à ne rentrer que des chiffres !");
-            }
-            if (selection == 1) {
-                return true;
-            } else if (selection == 2) {
-                return false;
-            } else if (selection == 3) {
-                System.out.println("fermeture du programme ");
-                System.exit(0);
-            }
-
-        } while ((selection < 1) || (selection > 3));
         return false;
     }
 
