@@ -14,6 +14,8 @@ import static java.lang.Math.pow;
  */
 
 public class PlusOuMoinsMode2 extends Game {
+    Menu1 mod3 = new Menu1();
+    boolean mode3 = mod3.isMode3();
     private Logger logger = Logger.getLogger(PlusOuMoinsMode2.class);
 
     String signe1;
@@ -101,8 +103,11 @@ public class PlusOuMoinsMode2 extends Game {
      * cette méthode est le coeur de cette classe c'est elle qui est chargée de lancer les méthodes pour faire fonctionner le jeu
      * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
      */
-    private boolean mode2() {
+    public boolean mode2() {
+        boolean mode3 ;
 
+        PlusOuMoinsMode1 f = new PlusOuMoinsMode1();
+        mode3 = f.isMode3();
         boolean jouerEncore = false;
         do {
             logger.info("lancement d'un tour");
@@ -116,6 +121,10 @@ public class PlusOuMoinsMode2 extends Game {
             this.saisieUserReponse();
 
             jouerEncore = this.verification();
+            if (mode3 == true && jouerEncore == false){
+                f.mode1();
+            }
+
 
         } while (jouerEncore == false);
         jouerEncore = this.rejouer();

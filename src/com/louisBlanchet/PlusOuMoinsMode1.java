@@ -12,6 +12,13 @@ public class PlusOuMoinsMode1 extends Game {
     int compteur = 0;
     int lenght;
     boolean devMod;
+    Menu1 mod3 = new Menu1();
+
+    public boolean isMode3() {
+        return mode3;
+    }
+
+    boolean mode3 = mod3.isMode3();
 
     protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
     protected String[] nbMystereDecoupe;
@@ -41,9 +48,13 @@ public class PlusOuMoinsMode1 extends Game {
      * @return : retourne la valeur obtenue dans messageVictoire
      */
     public boolean mode1() {
+        PlusOuMoinsMode2 g = new PlusOuMoinsMode2();
         boolean jouerEncore = true;
         logger.info("lancement du jeu ou relance d'un tour");
         int nbEssais = 7;
+        if (mode3 == true){
+            nbEssais = 99;
+        }
         System.out.println("Vous avez sélectionné le mode 1, vous avez " + nbEssais + " essais, bonne chance !");
 
 
@@ -52,6 +63,12 @@ public class PlusOuMoinsMode1 extends Game {
                 randomizer();
             }
             jouerEncore = this.essais(compteur);
+            if (mode3 = true && compteur ==1){
+                g.main();
+            }
+            if (mode3 == true ){
+                g.mode2();
+            }
         } while (jouerEncore == true);
         return jouerEncore;
 
@@ -204,6 +221,7 @@ public class PlusOuMoinsMode1 extends Game {
 
                 if (proposition.length() < nbMysteredecoupe1.length || proposition.length() > nbMysteredecoupe1.length) {
                     System.out.println("vous n'avez pas rentré le bon nombre de chiffres réesayez");
+                    System.out.println(Arrays.toString(nbMystereDecoupe));
                     logger.debug("la proposition ne comportait pas le bon nombre de chiffre");
                 } else {
                     checkeur = true;

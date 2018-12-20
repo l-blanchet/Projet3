@@ -6,6 +6,9 @@ import org.apache.log4j.Logger;
  * Classe servant à afficher le menu pour le plus ou moins
  */
 public class Menu1 extends Menu{
+
+
+    public boolean mode3;
     /**
      * affiche le menu pour le jeu plus ou moins et analyse l'entrée faite par l'utilisateur pour l'envoyer à la classe correspondante
      * @return retourne la valeur obtenue pour réafficher le menu principal
@@ -17,8 +20,9 @@ public class Menu1 extends Menu{
         logger.info("affichage du menu pour le mode 1");
         do {
             nbMenu1 = getNbMenu();
-            logger.info("choix de menu"+nbMenu1);
+            logger.info("choix du plus ou moins mode "+nbMenu1);
             if (nbMenu1 == 1) {
+                mode3 = false;
 
                 PlusOuMoinsMode1 rand = new PlusOuMoinsMode1();
                 retourMenu = rand.getRandomized();
@@ -28,7 +32,9 @@ public class Menu1 extends Menu{
                 c.main();
             }
             else if (nbMenu1 == 3) {
-                System.out.println("test3");
+                 mode3 = true ;
+                PlusOuMoinsMode1 f = new PlusOuMoinsMode1();
+                f.getRandomized();
             }
             else if (nbMenu1 == 4) {
                  return true;
@@ -36,6 +42,8 @@ public class Menu1 extends Menu{
         }while (nbMenu1<1|| nbMenu1>4);
         return retourMenu;
         }
-
+    public boolean isMode3() {
+        return mode3;
+    }
 }
 
