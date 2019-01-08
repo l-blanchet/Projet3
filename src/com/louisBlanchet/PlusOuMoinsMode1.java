@@ -9,16 +9,26 @@ import java.util.Scanner;
  * cette classe joue le plus ou moins en mode attaquant
  */
 public class PlusOuMoinsMode1 extends Game {
+    private boolean mode3;
+
+    public int getCompteur() {
+        return compteur;
+    }
+
     int compteur = 0;
     int lenght;
     boolean devMod;
-    Menu1 mod3 = new Menu1();
+    int rejouer;
 
-    public boolean isMode3() {
-        return mode3;
+    public PlusOuMoinsMode1(boolean mode3 , int rejouer) {
+        this.mode3 = mode3;
+        this.rejouer = rejouer;
     }
 
-    boolean mode3 = mod3.isMode3();
+
+
+
+
 
     protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
     protected String[] nbMystereDecoupe;
@@ -48,26 +58,32 @@ public class PlusOuMoinsMode1 extends Game {
      * @return : retourne la valeur obtenue dans messageVictoire
      */
     public boolean mode1() {
-        PlusOuMoinsMode2 g = new PlusOuMoinsMode2();
+        PlusOuMoinsMode2 g = null ;
         boolean jouerEncore = true;
         logger.info("lancement du jeu ou relance d'un tour");
         int nbEssais = 7;
         if (mode3 == true){
+            g = new PlusOuMoinsMode2(mode3);
             nbEssais = 99;
         }
         System.out.println("Vous avez sélectionné le mode 1, vous avez " + nbEssais + " essais, bonne chance !");
 
 
         do {
+            this.rejouer = rejouer;
+            if (rejouer != 1 ){
+                compteur = 0;
+            }
             if (compteur == 0 && jouerEncore == true) {
                 randomizer();
             }
             jouerEncore = this.essais(compteur);
-            if (mode3 = true && compteur ==1){
+            if (mode3 == true && 1 == compteur){
                 g.main();
             }
-            if (mode3 == true ){
-                g.mode2();
+            if (mode3 && compteur > 1){
+
+                jouerEncore = g.mode2();
             }
         } while (jouerEncore == true);
         return jouerEncore;

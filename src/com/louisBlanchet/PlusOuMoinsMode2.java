@@ -14,10 +14,9 @@ import static java.lang.Math.pow;
  */
 
 public class PlusOuMoinsMode2 extends Game {
-    Menu1 mod3 = new Menu1();
-    boolean mode3 = mod3.isMode3();
+    boolean mode3 ;
     private Logger logger = Logger.getLogger(PlusOuMoinsMode2.class);
-
+    int compteurplusOuMoinsMode1;
     String signe1;
     int chiffreCourantTest;
     int chiffre;
@@ -31,10 +30,13 @@ public class PlusOuMoinsMode2 extends Game {
     private boolean verif;
     boolean devMod;
 
+    public PlusOuMoinsMode2(boolean mode3) {
+        this.mode3 = mode3;
+    }
 
- //   public PlusOuMoinsMode2(int lenght) {
-    //    this.lenght = lenght;
-  //  }
+    public PlusOuMoinsMode2(int compteurPlusOuMoinsMode1) {
+        this.compteurplusOuMoinsMode1 = compteurPlusOuMoinsMode1;
+    }
 
     /**
      * méthode qui lance le jeu
@@ -44,7 +46,7 @@ public class PlusOuMoinsMode2 extends Game {
         do {
             logger.info("lancement d'un tour");
             jouerEncore = this.recupNbMystere();
-        } while (jouerEncore);
+        } while (jouerEncore == false );
     }
 
     /**
@@ -104,11 +106,9 @@ public class PlusOuMoinsMode2 extends Game {
      * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
      */
     public boolean mode2() {
-        boolean mode3 ;
 
-        PlusOuMoinsMode1 f = new PlusOuMoinsMode1();
-        mode3 = f.isMode3();
-        boolean jouerEncore = false;
+
+        boolean jouerEncore = true;
         do {
             logger.info("lancement d'un tour");
             if (compteur == 0) {
@@ -116,17 +116,18 @@ public class PlusOuMoinsMode2 extends Game {
                 this.affichePropositionParDefaut();
             }
             this.nbPropose();
-            compteur = compteur + 1;
-
+            if(mode3 == false) {
+                compteur = compteur + 1;
+            }
             this.saisieUserReponse();
 
             jouerEncore = this.verification();
-            if (mode3 == true && jouerEncore == false){
-                f.mode1();
+            if (mode3 == true){
+                return jouerEncore;
             }
 
 
-        } while (jouerEncore == false);
+        } while (jouerEncore == true);
         jouerEncore = this.rejouer();
         return jouerEncore;
 
@@ -181,14 +182,20 @@ public class PlusOuMoinsMode2 extends Game {
         if (Arrays.equals(nbPropose, nbMystereDecoupe)) {
 
             System.out.println("L'ordinateur a trouvé en " + compteur + " coups , Vous avez perdu !");
-            return true;
+            compteurplusOuMoinsMode1 = 0;
+            boolean jouerEncore;
+            jouerEncore = rejouer();
+            return jouerEncore;
 
 
         } else if (compteur >= 5) {
             System.out.println("Vous avez gagné !");
-            return true ;
+            compteurplusOuMoinsMode1 = 0;
+            boolean jouerEncore;
+            jouerEncore = rejouer();
+            return jouerEncore;
         }
-        return false;
+        return true;
     }
 
     /**

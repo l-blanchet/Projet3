@@ -12,6 +12,7 @@ import static java.lang.Math.random;
  * Classe créant un nombre aléatoire
  */
 public class Game {
+    int rejouer = 0;
     protected Logger logger = Logger.getLogger(Game.class);
 
     public String[] getRandomized(int lenght ) {
@@ -48,6 +49,7 @@ public class Game {
 
     protected boolean rejouer() {
         Scanner sc;
+
         int selection;
         do {
             System.out.println("veuillez sélectionner dans quelle section voulez vous aller");
@@ -64,6 +66,7 @@ public class Game {
             }
             if (selection == 1) {
                 logger.info("relancement du jeu");
+                rejouer = rejouer +1 ;
                 return true;
             } else if (selection == 2) {
                 logger.info("retour au menu principal");
@@ -75,6 +78,10 @@ public class Game {
             }
 
             return false;
+
         } while ((selection < 1) || (selection > 3));
+    }
+    public int getRejouer() {
+        return rejouer;
     }
 }

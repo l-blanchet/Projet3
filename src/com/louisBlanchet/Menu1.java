@@ -14,6 +14,7 @@ public class Menu1 extends Menu{
      * @return retourne la valeur obtenue pour réafficher le menu principal
      */
     public boolean specialMenu1() {
+        int rejouer ;
         Logger logger = Logger.getLogger(Menu1.class);
         int nbMenu1;
         boolean retourMenu = false;
@@ -24,16 +25,17 @@ public class Menu1 extends Menu{
             if (nbMenu1 == 1) {
                 mode3 = false;
 
-                PlusOuMoinsMode1 rand = new PlusOuMoinsMode1();
+                PlusOuMoinsMode1 rand = new PlusOuMoinsMode1(false , rejouer = 0);
                 retourMenu = rand.getRandomized();
             }
             else if (nbMenu1 == 2) {
-                PlusOuMoinsMode2 c = new PlusOuMoinsMode2();
+
+                PlusOuMoinsMode2 c = new PlusOuMoinsMode2(false );
                 c.main();
             }
             else if (nbMenu1 == 3) {
-                 mode3 = true ;
-                PlusOuMoinsMode1 f = new PlusOuMoinsMode1();
+                mode3 = true ;
+                PlusOuMoinsMode1 f = new PlusOuMoinsMode1(true ,rejouer = 0);
                 f.getRandomized();
             }
             else if (nbMenu1 == 4) {
