@@ -47,7 +47,7 @@ public class Game {
      * @return retourne le choix de l'utilisateur pour savoir s'il veut rejouer ou pas
      */
 
-    protected boolean rejouer() {
+    protected Result rejouer() {
         Scanner sc;
 
         int selection;
@@ -63,23 +63,25 @@ public class Game {
                 selection = sc.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("veillez à ne rentrer que des chiffres !");
+
             }
             if (selection == 1) {
                 logger.info("relancement du jeu");
-                rejouer = rejouer +1 ;
-                return true;
+                return Result.RELANCER ;
+
             } else if (selection == 2) {
                 logger.info("retour au menu principal");
-                return false;
+                return Result.QUITTER;
             } else if (selection == 3) {
                 logger.info("fermeture du programme");
                 System.out.println("fermeture du programme ");
                 System.exit(0);
             }
 
-            return false;
+
 
         } while ((selection < 1) || (selection > 3));
+        return  null;
     }
     public int getRejouer() {
         return rejouer;

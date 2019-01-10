@@ -10,7 +10,7 @@ class Menu2 extends Menu {
      * méthode affichant le menu de sélection du mode de jeu du master mind et enregistrant la sélection de l'utilisateur pour l'emmener au mode de jeu désiré
      * @return retourne le choix de l'utilisateur dans le menu de fin de jeu
      */
-    boolean specialMenu2(){
+    Result specialMenu2(){
         Logger logger = Logger.getLogger(Menu2.class);
         logger.info("affichage du menu 2");
         int nbMenu2;
@@ -28,10 +28,10 @@ class Menu2 extends Menu {
                 System.out.println("test3");
             }
             if (nbMenu2 == 4) {
-                return true;
+                return Result.REJOUER;
             }
         }while (nbMenu2<1 ||nbMenu2>4);
-        return false;
+        return Result.QUITTER;
     }
 
     }

@@ -8,7 +8,7 @@ import java.util.Scanner;
  * classe permettant l'affichage du menu d'information des modes de jeu
  */
 public class Menu3 {
-    public boolean specialMenu3 (){
+    public Result specialMenu3 (){
         Logger logger = Logger.getLogger(Menu3.class);
         logger.info("affichage du menu 3");
         boolean retourMenu;
@@ -21,6 +21,6 @@ public class Menu3 {
         Scanner sc = new Scanner(System.in);
         int nbMenu3 = sc.nextInt();
 
-        return nbMenu3 == 1;
+        return Result.QUITTER ;
     }
 }

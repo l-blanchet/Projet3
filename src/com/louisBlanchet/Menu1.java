@@ -13,11 +13,11 @@ public class Menu1 extends Menu{
      * affiche le menu pour le jeu plus ou moins et analyse l'entrée faite par l'utilisateur pour l'envoyer à la classe correspondante
      * @return retourne la valeur obtenue pour réafficher le menu principal
      */
-    public boolean specialMenu1() {
+    public Result specialMenu1() {
         int rejouer ;
         Logger logger = Logger.getLogger(Menu1.class);
         int nbMenu1;
-        boolean retourMenu = false;
+        Result retourMenu = Result.QUITTER;
         logger.info("affichage du menu pour le mode 1");
         do {
             nbMenu1 = getNbMenu();
@@ -25,8 +25,8 @@ public class Menu1 extends Menu{
             if (nbMenu1 == 1) {
                 mode3 = false;
 
-                PlusOuMoinsMode1 rand = new PlusOuMoinsMode1(false , rejouer = 0);
-                retourMenu = rand.getRandomized();
+                PlusOuMoinsMode1 rand = new PlusOuMoinsMode1(false );
+                retourMenu = rand.Initialisation();
             }
             else if (nbMenu1 == 2) {
 
@@ -35,11 +35,11 @@ public class Menu1 extends Menu{
             }
             else if (nbMenu1 == 3) {
                 mode3 = true ;
-                PlusOuMoinsMode1 f = new PlusOuMoinsMode1(true ,rejouer = 0);
-                f.getRandomized();
+                PlusOuMoinsMode1 f = new PlusOuMoinsMode1(true );
+                f.Initialisation();
             }
             else if (nbMenu1 == 4) {
-                 return true;
+                 return Result.REJOUER;
             }
         }while (nbMenu1<1|| nbMenu1>4);
         return retourMenu;

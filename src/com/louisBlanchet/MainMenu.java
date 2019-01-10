@@ -15,7 +15,7 @@ public class MainMenu {
      */
     private static Logger logger = Logger.getLogger(MainMenu.class);
     public void displayMenu() {
-        boolean jouerEncore;
+        Result jouerEncore;
         logger.info("affichage du menu");
        do {
            int nbMenu;
@@ -38,14 +38,14 @@ public class MainMenu {
            } while (nbMenu < 1 || nbMenu > 4);
 
            jouerEncore = this.displaySelected(nbMenu);
-       }while (jouerEncore == false);
+       }while (jouerEncore ==Result.QUITTER);
     }
 
-    public boolean displaySelected(int nbMenu) {
+    public Result displaySelected(int nbMenu) {
         /**
          * méthode récuperant le valeur correspondant au menu où l'utilisateur souhaite se rendre
          */
-        boolean jouerEncore = false;
+        Result jouerEncore = Result.QUITTER;
         logger.info("choix du menu " +nbMenu);
         if (nbMenu == 1) {
             Menu1 menuSpe = new Menu1();

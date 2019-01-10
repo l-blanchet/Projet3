@@ -41,19 +41,22 @@ public class PlusOuMoinsMode2 extends Game {
     /**
      * méthode qui lance le jeu
      */
-    public void main() {
-        boolean jouerEncore;
+    public Result main() {
+        Result  jouerEncore;
+        boolean check = true;
         do {
             logger.info("lancement d'un tour");
+            check = false;
             jouerEncore = this.recupNbMystere();
-        } while (jouerEncore == false );
+        } while (check == true );
+        return jouerEncore;
     }
 
     /**
      * méthode se lancant à chaque nouvelle partie met les valeurs principales à zéro et demande un nombre mystère
      * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
      */
-    public boolean recupNbMystere() {
+    public Result recupNbMystere() {
         logger.info("mise à zéro des valeurs");
         Config configuration = new Config();
         lenght = configuration.getLength();
@@ -95,7 +98,7 @@ public class PlusOuMoinsMode2 extends Game {
             String decoupage = nbMystere1.substring(i, i + 1);
             nbMystereDecoupe[i] = decoupage;
         }
-        boolean jouerEncore;
+        Result jouerEncore;
         jouerEncore = this.mode2();
         return jouerEncore;
 
@@ -105,10 +108,10 @@ public class PlusOuMoinsMode2 extends Game {
      * cette méthode est le coeur de cette classe c'est elle qui est chargée de lancer les méthodes pour faire fonctionner le jeu
      * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
      */
-    public boolean mode2() {
+    public Result mode2() {
 
 
-        boolean jouerEncore = true;
+        Result jouerEncore ;
         do {
             logger.info("lancement d'un tour");
             if (compteur == 0) {
@@ -127,8 +130,7 @@ public class PlusOuMoinsMode2 extends Game {
             }
 
 
-        } while (jouerEncore == true);
-        jouerEncore = this.rejouer();
+        } while (jouerEncore == Result.REJOUER);
         return jouerEncore;
 
 
@@ -177,25 +179,23 @@ public class PlusOuMoinsMode2 extends Game {
      * cette méthode vérifie la proposition utilisateur et la proposition de l'ordinateur pour vérifier un éventuelle égalité
      * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
      */
-    private boolean verification() {
+    private Result verification() {
         logger.info("comparaison proposition ordinateur et nombre mystère");
         if (Arrays.equals(nbPropose, nbMystereDecoupe)) {
 
             System.out.println("L'ordinateur a trouvé en " + compteur + " coups , Vous avez perdu !");
-            compteurplusOuMoinsMode1 = 0;
-            boolean jouerEncore;
+            Result jouerEncore;
             jouerEncore = rejouer();
             return jouerEncore;
 
 
         } else if (compteur >= 5) {
             System.out.println("Vous avez gagné !");
-            compteurplusOuMoinsMode1 = 0;
-            boolean jouerEncore;
+            Result jouerEncore;
             jouerEncore = rejouer();
             return jouerEncore;
         }
-        return true;
+        return Result.REJOUER;
     }
 
     /**

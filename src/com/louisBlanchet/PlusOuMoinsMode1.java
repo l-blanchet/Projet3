@@ -20,9 +20,8 @@ public class PlusOuMoinsMode1 extends Game {
     boolean devMod;
     int rejouer;
 
-    public PlusOuMoinsMode1(boolean mode3 , int rejouer) {
+    public PlusOuMoinsMode1(boolean mode3 ) {
         this.mode3 = mode3;
-        this.rejouer = rejouer;
     }
 
 
@@ -39,16 +38,16 @@ public class PlusOuMoinsMode1 extends Game {
      *
      * @return : retourne la valeur obtenue dans messageVictoire
      */
-    public boolean getRandomized() {
+    public Result Initialisation() {
         Config configuration = new Config();
         lenght = configuration.getLength();
         devMod = configuration.isDevMod();
 
-        boolean jouerEncore;
+        Result jouerEncore;
         do {
             jouerEncore = this.mode1();
             logger.info("lancement du tour " + compteur);
-        } while (jouerEncore == true);
+        } while (jouerEncore == Result.REJOUER);
         return jouerEncore;
     }
 
@@ -57,9 +56,9 @@ public class PlusOuMoinsMode1 extends Game {
      *
      * @return : retourne la valeur obtenue dans messageVictoire
      */
-    public boolean mode1() {
+    public Result mode1() {
         PlusOuMoinsMode2 g = null ;
-        boolean jouerEncore = true;
+        Result jouerEncore = Result.REJOUER;
         logger.info("lancement du jeu ou relance d'un tour");
         int nbEssais = 7;
         if (mode3 == true){
@@ -70,22 +69,21 @@ public class PlusOuMoinsMode1 extends Game {
 
 
         do {
-            this.rejouer = rejouer;
-            if (rejouer != 1 ){
-                compteur = 0;
-            }
-            if (compteur == 0 && jouerEncore == true) {
+            if ((compteur == 0 && jouerEncore == Result.RELANCER) || (jouerEncore == Result.REJOUER && compteur == 0)) {
                 randomizer();
             }
             jouerEncore = this.essais(compteur);
             if (mode3 == true && 1 == compteur){
-                g.main();
+                jouerEncore =g.main();
             }
             if (mode3 && compteur > 1){
 
                 jouerEncore = g.mode2();
             }
-        } while (jouerEncore == true);
+            if ( jouerEncore== Result.RELANCER){
+                compteur = 0 ;
+            }
+        } while (jouerEncore == Result.REJOUER || jouerEncore == Result.RELANCER);
         return jouerEncore;
 
     }
@@ -110,7 +108,7 @@ public class PlusOuMoinsMode1 extends Game {
      * @param compteur1 : utilisé en tant qu'argument à la place de compteur, il sert aussi d'affichage du nombre de tours
      * @return : sert à indiquer ce que l'utilisateur veut faire en renvoyant le booléen obtenu dans messageVictoire
      */
-    private boolean essais(int compteur1) {
+    private Result essais(int compteur1) {
         compteur1 = compteur;
         if (devMod == true) {
             System.out.println(Arrays.toString(nbMystereDecoupe));
@@ -125,11 +123,11 @@ public class PlusOuMoinsMode1 extends Game {
         }
         System.out.println(Arrays.toString(propositionDecoupe));
         if (verif == true) {
-            boolean jouerEncore;
+            Result jouerEncore;
             jouerEncore = this.messageVictoire(compteur, propositionDecoupe);
             return jouerEncore;
         }
-        return true;
+        return Result.REJOUER;
     }
 
     /**
@@ -139,7 +137,7 @@ public class PlusOuMoinsMode1 extends Game {
      * @param propositionDecoupe : la proposition de l'utilisateur decoupé dans une String[]
      * @return : sert à indiquer ce que veux faire l'utilisateur après la partie; true pour relancer un niveau et false pour revenir au menu principal
      */
-    private boolean messageVictoire(int compteur2, String[] propositionDecoupe) {
+    private Result messageVictoire(int compteur2, String[] propositionDecoupe) {
 
         compteur2 = compteur;
         boolean rejouer;
