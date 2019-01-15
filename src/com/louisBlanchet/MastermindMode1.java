@@ -1,22 +1,22 @@
 package com.louisBlanchet;
 
 import org.apache.log4j.Logger;
+
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-/**
- * cette classe joue le plus ou moins en mode attaquant
- */
-public class PlusOuMoinsMode1 extends Game {
+public class MastermindMode1 extends Game{
     protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
     protected String[] nbMystereDecoupe;
     protected String[] nbMysteredecoupe1;
     int compteur = 0;
+    int bienPlace;
+    int malPlace;
     int lenght;
     boolean devMod;
     private boolean mode3;
-    public PlusOuMoinsMode1(boolean mode3) {
+    public MastermindMode1(boolean mode3) {
         this.mode3 = mode3;
     }
 
@@ -44,12 +44,12 @@ public class PlusOuMoinsMode1 extends Game {
      * @return : retourne la valeur obtenue dans messageVictoire
      */
     public Result mode1() {
-        PlusOuMoinsMode2 g = null;
+        MastermindMode2 g = null;
         Result jouerEncore = Result.REJOUER;
         logger.info("lancement du jeu ou relance d'un tour");
-        int nbEssais = 7;
+        int nbEssais = 10;
         if (mode3 == true) {
-            g = new PlusOuMoinsMode2(mode3);
+            g = new MastermindMode2(mode3);
             nbEssais = 99;
         }
         if (mode3 == false) {
@@ -62,11 +62,11 @@ public class PlusOuMoinsMode1 extends Game {
             }
             jouerEncore = this.essais(compteur);
             if (mode3 == true && 1 == compteur) {
-                jouerEncore = g.main();
+               // jouerEncore = g.main();
             }
             if (mode3 && compteur > 1) {
 
-                jouerEncore = g.mode2();
+               // jouerEncore = g.mode2();
             }
             if (jouerEncore == Result.RELANCER) {
                 compteur = 0;
@@ -86,7 +86,7 @@ public class PlusOuMoinsMode1 extends Game {
         Game test = new Game();
         nbMystereDecoupe = test.getRandomized(lenght);
         nbMysteredecoupe1 = nbMystereDecoupe;
-        logger.info("randomizer vient de renvoyer le nombre mystere" + nbMystereDecoupe);
+        logger.info("randomizer vient de renvoyer le nombre mystere" + Arrays.toString(nbMystereDecoupe));
         return true;
     }
 
@@ -129,11 +129,11 @@ public class PlusOuMoinsMode1 extends Game {
 
         compteur2 = compteur;
         boolean rejouer;
-        if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1)) {
+        if (bienPlace == lenght) {
             System.out.println("Vous avez gagné en " + compteur + " essais, Bravo!");
             compteur = 0;
         }
-        if (compteur == 6) {
+        if (compteur == 10) {
             System.out.println("Vous avez perdu");
             compteur = 0;
         }
@@ -161,11 +161,16 @@ public class PlusOuMoinsMode1 extends Game {
      * @return :renvoie true pour continuer le tour
      */
     private boolean verification(String proposition, String[] propositionDecoupe) {
-        logger.info("vérification de la proposition de l'utilisateur");
+
+         logger.info("vérification de la proposition de l'utilisateur");
         String[] reponse = new String[proposition.length()];
+        String nbMystere;
+        int compteurSpe = 0;
+        int compteurNbPropose = 0;
+        int compteurproposition = 0;
 
         for (int verificateur = 0; verificateur < proposition.length(); verificateur++) {
-            String nbMystere;
+
             nbMystere = nbMystereDecoupe[verificateur];
             int nbDecoupe = Integer.parseInt(nbMystere);
             String proposition1;
@@ -173,15 +178,65 @@ public class PlusOuMoinsMode1 extends Game {
             int propositioncut = Integer.parseInt(proposition1);
 
             if (propositioncut == nbDecoupe) {
-                reponse[verificateur] = "=";
-            } else if (propositioncut < nbDecoupe) {
-                reponse[verificateur] = "-";
-            } else if (propositioncut > nbDecoupe) {
-                reponse[verificateur] = "+";
+                bienPlace = bienPlace + 1;
             }
-
         }
-        System.out.println("réponse" + Arrays.toString(reponse));
+        int nvlenght = lenght -bienPlace;
+        String nvNbMystereDecoupe[] = new String[nvlenght];
+        String nvPropositionDecoupe[] = new String[nvlenght];
+        for (int verificateur = 0; verificateur < proposition.length(); verificateur++) {
+
+            nbMystere = nbMystereDecoupe[verificateur];
+            int nbDecoupe = Integer.parseInt(nbMystere);
+            String proposition1;
+            proposition1 = propositionDecoupe[verificateur];
+            int propositioncut = Integer.parseInt(proposition1);
+
+            if (propositioncut != nbDecoupe) {
+                nvNbMystereDecoupe[compteurNbPropose] = String.valueOf(nbDecoupe);
+                nvPropositionDecoupe[compteurproposition] = String.valueOf(propositioncut);
+                compteurNbPropose++;
+                compteurproposition++;
+
+            }
+        }
+
+        int compteur = 0;
+        int nvllePropositionDecoupe;
+        int nvNbMystDecoupe;
+
+        for (compteur = 0 ;compteur<nvNbMystereDecoupe.length;  compteur++ ) {
+             nvllePropositionDecoupe = Integer.parseInt(nvPropositionDecoupe[compteur]);
+            int test = 0;
+            do {
+                nvNbMystDecoupe = Integer.parseInt(nvNbMystereDecoupe[compteurSpe]);
+                if (nvllePropositionDecoupe == nvNbMystDecoupe) {
+                    malPlace++;
+                    test = nvlenght;
+                }
+                else {
+                    compteurSpe++;
+                    test++;
+                }
+            } while ( test < nvlenght);
+            compteurSpe = 0;
+        }
+        String mascBien=  " bien placé";
+        String plurBien = " bien placés";
+        String mascMal = " mal placé";
+        String plurMal = " mal placés";
+        if(bienPlace<=1){
+            System.out.println("réponse: "+bienPlace+ mascBien);
+        }else{
+            System.out.println("réponse: "+bienPlace+ plurBien);
+        }
+        if (malPlace <= 1){
+            System.out.println("         "+malPlace+ mascMal);
+        }else{
+            System.out.println("         "+malPlace+ plurMal);
+        }
+        bienPlace = 0;
+        malPlace = 0;
         return true;
     }
 
@@ -240,3 +295,5 @@ public class PlusOuMoinsMode1 extends Game {
 
     }
 }
+
+

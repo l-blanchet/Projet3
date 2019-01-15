@@ -2,11 +2,9 @@ package com.louisBlanchet;
 
 
 import org.apache.log4j.Logger;
-
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import static java.lang.Math.pow;
 
 /**
@@ -14,12 +12,13 @@ import static java.lang.Math.pow;
  */
 
 public class PlusOuMoinsMode2 extends Game {
-    boolean mode3 ;
-    private Logger logger = Logger.getLogger(PlusOuMoinsMode2.class);
+    boolean mode3;
     int compteurplusOuMoinsMode1;
     String signe1;
     int chiffreCourantTest;
     int chiffre;
+    boolean devMod;
+    private Logger logger = Logger.getLogger(PlusOuMoinsMode2.class);
     private String[] nbPropose;
     private String[] nbProposePrecedent;
     private String[] reponse;
@@ -28,7 +27,6 @@ public class PlusOuMoinsMode2 extends Game {
     private int compteur;
     private int boucleAlgo;
     private boolean verif;
-    boolean devMod;
 
     public PlusOuMoinsMode2(boolean mode3) {
         this.mode3 = mode3;
@@ -42,18 +40,19 @@ public class PlusOuMoinsMode2 extends Game {
      * méthode qui lance le jeu
      */
     public Result main() {
-        Result  jouerEncore;
+        Result jouerEncore;
         boolean check = true;
         do {
             logger.info("lancement d'un tour");
             check = false;
             jouerEncore = this.recupNbMystere();
-        } while (check == true );
+        } while (check == true);
         return jouerEncore;
     }
 
     /**
      * méthode se lancant à chaque nouvelle partie met les valeurs principales à zéro et demande un nombre mystère
+     *
      * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
      */
     public Result recupNbMystere() {
@@ -63,16 +62,16 @@ public class PlusOuMoinsMode2 extends Game {
         devMod = configuration.isDevMod();
 
         nbPropose = new String[lenght];
-        for (int i =0 ; i < lenght; i++){
-            nbPropose[i]="5";
+        for (int i = 0; i < lenght; i++) {
+            nbPropose[i] = "5";
         }
         reponse = new String[lenght];
-        for (int i =0 ; i < lenght; i++){
-            reponse[i]="=";
+        for (int i = 0; i < lenght; i++) {
+            reponse[i] = "=";
         }
         nbMystereDecoupe = new String[lenght];
-        for (int i =0 ; i < lenght; i++){
-            nbMystereDecoupe[i]="1";
+        for (int i = 0; i < lenght; i++) {
+            nbMystereDecoupe[i] = "1";
         }
         compteur = 0;
         boucleAlgo = 4;
@@ -80,10 +79,10 @@ public class PlusOuMoinsMode2 extends Game {
 
 
         int nbMystere;
-        int valeurMax = (int) pow(10,lenght-1);
+        int valeurMax = (int) pow(10, lenght - 1);
         do {
-            logger.info("sélectio du nombre mystère");
-            System.out.println("vous avez sélectionné le mode 2 veuillez proposer un nombre supérieur à " +valeurMax);
+            logger.info("sélection du nombre mystère");
+            System.out.println("vous avez sélectionné le mode 2 veuillez proposer un nombre supérieur à " + valeurMax);
             Scanner sc = new Scanner(System.in);
             nbMystere = 0;
             try {
@@ -106,12 +105,13 @@ public class PlusOuMoinsMode2 extends Game {
 
     /**
      * cette méthode est le coeur de cette classe c'est elle qui est chargée de lancer les méthodes pour faire fonctionner le jeu
+     *
      * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
      */
     public Result mode2() {
 
 
-        Result jouerEncore ;
+        Result jouerEncore;
         do {
             logger.info("lancement d'un tour");
             if (compteur == 0) {
@@ -119,13 +119,13 @@ public class PlusOuMoinsMode2 extends Game {
                 this.affichePropositionParDefaut();
             }
             this.nbPropose();
-            if(mode3 == false) {
+            if (mode3 == false) {
                 compteur = compteur + 1;
             }
             this.saisieUserReponse();
 
             jouerEncore = this.verification();
-            if (mode3 == true){
+            if (mode3 == true) {
                 return jouerEncore;
             }
 
@@ -177,6 +177,7 @@ public class PlusOuMoinsMode2 extends Game {
 
     /**
      * cette méthode vérifie la proposition utilisateur et la proposition de l'ordinateur pour vérifier un éventuelle égalité
+     *
      * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
      */
     private Result verification() {
@@ -200,6 +201,7 @@ public class PlusOuMoinsMode2 extends Game {
 
     /**
      * cette méthode découpe le résultat obtenu de l'ordinateur et la réponse donné par l'utilisateur pour proposer de nouvelles valeurs en adéquation avec ces deux résultats
+     *
      * @return retourne la nouvelle valeur que l'ordinateur proposera
      */
     public String[] nbPropose() {
@@ -231,9 +233,10 @@ public class PlusOuMoinsMode2 extends Game {
 
     /**
      * cette méthode sert à proposer une nouvelle valeur à l'aide de deux valeurs : la proposition précedente et la réponse de l'utilisateur (en "+", "-" et "=" )
-     * @param chiffreCourant le chiffre qui sera proposé à l'issue de cette méthode
+     *
+     * @param chiffreCourant   le chiffre qui sera proposé à l'issue de cette méthode
      * @param chiffrePrecedent le chiffre proposé au tour précédent
-     * @param signe le signe donné par l'utilisateur
+     * @param signe            le signe donné par l'utilisateur
      * @return le chiffre déduit par l'algorithme
      */
     public int proposechiffre(int chiffreCourant, int chiffrePrecedent, String signe) {
