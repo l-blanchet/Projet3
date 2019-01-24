@@ -17,6 +17,8 @@ public class Config {
     private static Logger logger = Logger.getLogger(Config.class);
     int length;
     boolean devMod;
+    int nbEssai;
+    int nbCouleur;
 
     public Config() {
         property();
@@ -24,6 +26,18 @@ public class Config {
 
     public boolean isDevMod() {
         return devMod;
+    }
+
+    public static Logger getLogger() {
+        return logger;
+    }
+
+    public int getNbEssai() {
+        return nbEssai;
+    }
+
+    public int getNbCouleur() {
+        return nbCouleur;
     }
 
     public void property() {
@@ -58,6 +72,10 @@ public class Config {
         length = Integer.parseInt(test);
         String modDev = prop.getProperty("devMod");
         devMod = Boolean.parseBoolean(modDev);
+        String nbEssais = prop.getProperty("nbEssai");
+        nbEssai = Integer.parseInt(nbEssais);
+        String nbCouleurs = prop.getProperty("nbCouleur");
+        nbCouleur = Integer.parseInt(nbCouleurs);
 
 
 

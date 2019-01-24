@@ -27,7 +27,9 @@ class Menu2 extends Menu {
                 retourMenu = rand.Initialisation();
             }
             if (nbMenu2 == 2) {
-                System.out.println("test2");
+                mode3 = false;
+                MastermindMode2 test = new MastermindMode2(false);
+                test.test1();
             }
             if (nbMenu2 == 3) {
                 System.out.println("test3");

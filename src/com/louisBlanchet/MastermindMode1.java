@@ -3,18 +3,15 @@ package com.louisBlanchet;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class MastermindMode1 extends Game{
     protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
-    protected String[] nbMystereDecoupe;
-    protected String[] nbMysteredecoupe1;
     int compteur = 0;
     int bienPlace;
     int malPlace;
     int lenght;
     boolean devMod;
+    int nbEssais;
     private boolean mode3;
     public MastermindMode1(boolean mode3) {
         this.mode3 = mode3;
@@ -29,6 +26,7 @@ public class MastermindMode1 extends Game{
         Config configuration = new Config();
         lenght = configuration.getLength();
         devMod = configuration.isDevMod();
+        nbEssais = configuration.getNbEssai();
 
         Result jouerEncore;
         do {
@@ -47,9 +45,8 @@ public class MastermindMode1 extends Game{
         MastermindMode2 g = null;
         Result jouerEncore = Result.REJOUER;
         logger.info("lancement du jeu ou relance d'un tour");
-        int nbEssais = 10;
         if (mode3 == true) {
-            g = new MastermindMode2(mode3);
+           // g = new MastermindMode2(mode3);
             nbEssais = 99;
         }
         if (mode3 == false) {
@@ -83,8 +80,8 @@ public class MastermindMode1 extends Game{
      */
     public boolean randomizer() {
         logger.info("lancement de randomizer");
-        Game test = new Game();
-        nbMystereDecoupe = test.getRandomized(lenght);
+
+        nbMystereDecoupe = getRandomized(lenght);
         nbMysteredecoupe1 = nbMystereDecoupe;
         logger.info("randomizer vient de renvoyer le nombre mystere" + Arrays.toString(nbMystereDecoupe));
         return true;
@@ -145,13 +142,13 @@ public class MastermindMode1 extends Game{
      *
      * @return : retourne la proposition de l'utilisateur en String[]
      */
-    private String[] essai() {
+/*    protected String[] essai() {
         String proposition = proposition();
         String[] propositionDecoupe = decoupage(proposition);
 
         verification(proposition, propositionDecoupe);
         return propositionDecoupe;
-    }
+    }*/
 
     /**
      * cette méthode est là où l'ordinateur compare le nombre mystère et la proposition et affiche une String composé de "+-=" correspondant
@@ -160,7 +157,7 @@ public class MastermindMode1 extends Game{
      * @param propositionDecoupe : pour récuperer le nombre proposé par l'utilisateur
      * @return :renvoie true pour continuer le tour
      */
-    private boolean verification(String proposition, String[] propositionDecoupe) {
+    protected boolean verification(String proposition, String[] propositionDecoupe) {
 
          logger.info("vérification de la proposition de l'utilisateur");
         String[] reponse = new String[proposition.length()];
@@ -241,28 +238,11 @@ public class MastermindMode1 extends Game{
     }
 
     /**
-     * cette méthode sert à decouper la proposition et à la transformer en String[]
-     *
-     * @param proposition : obligatoire pour la découper
-     * @return :retourne la proposition de l'utilisateur en String[]
-     */
-    private String[] decoupage(String proposition) {
-        logger.info("découpage de la proposition de l'utilisateur");
-        String[] propositionDecoupe = new String[proposition.length()];
-
-        for (int compteurtest = 0; compteurtest < proposition.length(); compteurtest++) {
-            String decoupage = proposition.substring(compteurtest, compteurtest + 1);
-            propositionDecoupe[compteurtest] = decoupage;
-        }
-        return propositionDecoupe;
-    }
-
-    /**
      * cette méthode demande à l'utilisateur d'entrer une proposition
      *
      * @return : retourne la proposition saisi par l'utilisateur
      */
-    private String proposition() {
+/*    private String proposition() {
         boolean checkeur = false;
         String proposition = null;
         int essai;
@@ -293,7 +273,7 @@ public class MastermindMode1 extends Game{
         }
         return proposition;
 
-    }
+    }*/
 }
 
 

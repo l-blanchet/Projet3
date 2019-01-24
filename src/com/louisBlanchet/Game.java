@@ -2,6 +2,7 @@ package com.louisBlanchet;
 
 import org.apache.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -11,7 +12,9 @@ import static java.lang.Math.random;
 /**
  * Classe créant un nombre aléatoire
  */
-public class Game {
+public abstract class Game {
+    protected String[] nbMystereDecoupe;
+    protected String[] nbMysteredecoupe1;
     int rejouer = 0;
     protected Logger logger = Logger.getLogger(Game.class);
 
@@ -85,5 +88,75 @@ public class Game {
     }
     public int getRejouer() {
         return rejouer;
+    }
+
+    /**
+     * cette méthode sert à decouper la proposition et à la transformer en String[]
+     *
+     * @param proposition : obligatoire pour la découper
+     * @return :retourne la proposition de l'utilisateur en String[]
+     */
+    protected String[] decoupage(String proposition) {
+        logger.info("découpage de la proposition de l'utilisateur");
+        String[] propositionDecoupe = new String[proposition.length()];
+
+        for (int compteurtest = 0; compteurtest < proposition.length(); compteurtest++) {
+            String decoupage = proposition.substring(compteurtest, compteurtest + 1);
+            propositionDecoupe[compteurtest] = decoupage;
+        }
+        return propositionDecoupe;
+    }
+
+    /**
+     * cette méthode est le déclencheur du tour il appelle toutes les fonctions utiles pour le tour
+     *
+     * @return : retourne la proposition de l'utilisateur en String[]
+     */
+    protected String[] essai() {
+        String proposition = proposition();
+        String[] propositionDecoupe = decoupage(proposition);
+
+        verification(proposition, propositionDecoupe);
+        return propositionDecoupe;
+    }
+
+    protected abstract boolean verification(String proposition, String[] propositionDecoupe);
+
+    /**
+     * cette méthode demande à l'utilisateur d'entrer une proposition
+     *
+     * @return : retourne la proposition saisi par l'utilisateur
+     */
+    private String proposition() {
+        boolean checkeur = false;
+        String proposition = null;
+        int essai;
+
+
+        while (!checkeur) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("proposition:");
+
+            try {
+                essai = sc.nextInt();
+                proposition = Integer.toString(essai);
+
+                if (proposition.length() < nbMysteredecoupe1.length || proposition.length() > nbMysteredecoupe1.length) {
+                    System.out.println("vous n'avez pas rentré le bon nombre de chiffres réesayez");
+                    System.out.println(Arrays.toString(nbMystereDecoupe));
+                    logger.debug("la proposition ne comportait pas le bon nombre de chiffre");
+                } else {
+                    checkeur = true;
+                }
+            } catch (InputMismatchException e) {
+                logger.debug("l'utilisateur n'a pas rentré de chiffre");
+                System.out.println("veillez à ne rentrer que des chiffres !");
+                checkeur = false;
+
+            }
+
+        }
+        return proposition;
+
     }
 }

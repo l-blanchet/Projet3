@@ -60,6 +60,7 @@ public class PlusOuMoinsMode2 extends Game {
         Config configuration = new Config();
         lenght = configuration.getLength();
         devMod = configuration.isDevMod();
+        compteur = configuration.getNbEssai();
 
         nbPropose = new String[lenght];
         for (int i = 0; i < lenght; i++) {
@@ -73,7 +74,7 @@ public class PlusOuMoinsMode2 extends Game {
         for (int i = 0; i < lenght; i++) {
             nbMystereDecoupe[i] = "1";
         }
-        compteur = 0;
+
         boucleAlgo = 4;
         verif = false;
 
@@ -275,6 +276,11 @@ public class PlusOuMoinsMode2 extends Game {
         chiffreCourant = chiffreCourantTest;
         return chiffreCourant;
 
+    }
+
+    @Override
+    protected boolean verification(String proposition, String[] propositionDecoupe) {
+ return Boolean.parseBoolean(null);
     }
 }
 
