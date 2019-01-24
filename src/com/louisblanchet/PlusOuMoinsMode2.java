@@ -1,4 +1,4 @@
-package com.louisBlanchet;
+package com.louisblanchet;
 
 
 import org.apache.log4j.Logger;
@@ -12,8 +12,8 @@ import static java.lang.Math.pow;
  */
 
 public class PlusOuMoinsMode2 extends Game {
+    private final Config configuration;
     boolean mode3;
-    int compteurplusOuMoinsMode1;
     String signe1;
     int chiffreCourantTest;
     int chiffre;
@@ -28,13 +28,12 @@ public class PlusOuMoinsMode2 extends Game {
     private int boucleAlgo;
     private boolean verif;
 
-    public PlusOuMoinsMode2(boolean mode3) {
+    public PlusOuMoinsMode2(boolean mode3, Config config) {
         this.mode3 = mode3;
+        this.configuration = config;
     }
 
-    public PlusOuMoinsMode2(int compteurPlusOuMoinsMode1) {
-        this.compteurplusOuMoinsMode1 = compteurPlusOuMoinsMode1;
-    }
+
 
     /**
      * méthode qui lance le jeu
@@ -57,7 +56,6 @@ public class PlusOuMoinsMode2 extends Game {
      */
     public Result recupNbMystere() {
         logger.info("mise à zéro des valeurs");
-        Config configuration = new Config();
         lenght = configuration.getLength();
         devMod = configuration.isDevMod();
         compteur = configuration.getNbEssai();

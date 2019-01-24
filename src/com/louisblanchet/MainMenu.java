@@ -1,6 +1,9 @@
-package com.louisBlanchet;
+package com.louisblanchet;
 
 
+import com.louisblanchet.menu.Menu1;
+import com.louisblanchet.menu.Menu2;
+import com.louisblanchet.menu.Menu3;
 import org.apache.log4j.Logger;
 
 import java.util.InputMismatchException;
@@ -14,6 +17,12 @@ public class MainMenu {
      * méthode affichant le menu principal
      */
     private static Logger logger = Logger.getLogger(MainMenu.class);
+    private final Config config;
+
+    public MainMenu(Config config) {
+        this.config = config;
+    }
+
     public void displayMenu() {
         Result jouerEncore;
         logger.info("affichage du menu");
@@ -48,10 +57,10 @@ public class MainMenu {
         Result jouerEncore = Result.QUITTER;
         logger.info("choix du menu " +nbMenu);
         if (nbMenu == 1) {
-            Menu1 menuSpe = new Menu1();
+            Menu1 menuSpe = new Menu1(config);
             jouerEncore = menuSpe.specialMenu1();
         } else if (nbMenu == 2) {
-            Menu2 menuSpe = new Menu2();
+            Menu2 menuSpe = new Menu2(config);
             jouerEncore = menuSpe.specialMenu2();
         } else if (nbMenu == 3) {
             Menu3 menuSpe = new Menu3();

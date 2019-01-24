@@ -1,21 +1,22 @@
-package com.louisBlanchet;
+package com.louisblanchet;
 
 import java.util.HashSet;
 
 import static java.lang.Math.pow;
 
 public class MastermindMode2 {
+    private final Config configuration;
     int lenght;
     boolean mode3;
     int nbCouleur;
 
-    public  MastermindMode2(boolean mode3) {
+    public  MastermindMode2(boolean mode3, Config config) {
         mode3 = this.mode3;
+        this.configuration = config;
     }
 
 
     public void test1(){
-        Config configuration = new Config();
         nbCouleur = configuration.getNbCouleur();
         lenght = configuration.getLength();
 

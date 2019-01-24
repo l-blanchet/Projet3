@@ -1,4 +1,4 @@
-package com.louisBlanchet;
+package com.louisblanchet;
 
 import org.apache.log4j.Logger;
 
@@ -24,21 +24,7 @@ public class Config {
         property();
     }
 
-    public boolean isDevMod() {
-        return devMod;
-    }
 
-    public static Logger getLogger() {
-        return logger;
-    }
-
-    public int getNbEssai() {
-        return nbEssai;
-    }
-
-    public int getNbCouleur() {
-        return nbCouleur;
-    }
 
     public void property() {
 
@@ -57,7 +43,7 @@ public class Config {
 
 
         } catch (IOException ex) {
-            logger.fatal("fichier non trouvé" , ex );
+            logger.fatal("fichier non trouvé", ex);
             System.exit(1);
         } finally {
             if (input != null) {
@@ -78,10 +64,29 @@ public class Config {
         nbCouleur = Integer.parseInt(nbCouleurs);
 
 
-
     }
 
     public int getLength() {
         return length;
+    }
+
+    public void setDevMod(boolean devMod) {
+        this.devMod = devMod;
+    }
+
+    public boolean isDevMod() {
+        return devMod;
+    }
+
+    public static Logger getLogger() {
+        return logger;
+    }
+
+    public int getNbEssai() {
+        return nbEssai;
+    }
+
+    public int getNbCouleur() {
+        return nbCouleur;
     }
 }

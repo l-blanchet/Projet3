@@ -1,10 +1,11 @@
-package com.louisBlanchet;
+package com.louisblanchet;
 
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 
 public class MastermindMode1 extends Game{
+    private final Config configuration;
     protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
     int compteur = 0;
     int bienPlace;
@@ -13,8 +14,9 @@ public class MastermindMode1 extends Game{
     boolean devMod;
     int nbEssais;
     private boolean mode3;
-    public MastermindMode1(boolean mode3) {
+    public MastermindMode1(boolean mode3, Config config) {
         this.mode3 = mode3;
+        this.configuration = config;
     }
 
     /**
@@ -23,7 +25,6 @@ public class MastermindMode1 extends Game{
      * @return : retourne la valeur obtenue dans messageVictoire
      */
     public Result Initialisation() {
-        Config configuration = new Config();
         lenght = configuration.getLength();
         devMod = configuration.isDevMod();
         nbEssais = configuration.getNbEssai();

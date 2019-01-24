@@ -1,4 +1,4 @@
-package com.louisBlanchet;
+package com.louisblanchet;
 
 import org.apache.log4j.Logger;
 
@@ -8,14 +8,16 @@ import java.util.Arrays;
  * cette classe joue le plus ou moins en mode attaquant
  */
 public class PlusOuMoinsMode1 extends Game {
+    private final Config config;
     protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
     int compteur = 0;
     int lenght;
     boolean devMod;
     private boolean mode3;
     int nbEssais;
-    public PlusOuMoinsMode1(boolean mode3) {
+    public PlusOuMoinsMode1(boolean mode3, Config config) {
         this.mode3 = mode3;
+        this.config = config;
     }
 
     /**
@@ -24,10 +26,9 @@ public class PlusOuMoinsMode1 extends Game {
      * @return : retourne la valeur obtenue dans messageVictoire
      */
     public Result Initialisation() {
-        Config configuration = new Config();
-        lenght = configuration.getLength();
-        devMod = configuration.isDevMod();
-        nbEssais = configuration.getNbEssai();
+        lenght = config.getLength();
+        devMod = config.isDevMod();
+        nbEssais = config.getNbEssai();
 
         Result jouerEncore;
         do {
@@ -47,7 +48,7 @@ public class PlusOuMoinsMode1 extends Game {
         Result jouerEncore = Result.REJOUER;
         logger.info("lancement du jeu ou relance d'un tour");
         if (mode3 == true) {
-            g = new PlusOuMoinsMode2(mode3);
+            g = new PlusOuMoinsMode2(mode3,config);
             nbEssais = 99;
         }
         if (mode3 == false) {
