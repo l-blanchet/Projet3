@@ -1,14 +1,24 @@
-package com.louisBlanchet;
+package com.louisblanchet.menu;
 
+import com.louisblanchet.Config;
+import com.louisblanchet.plusoumoins.PlusOuMoinsMode1;
+import com.louisblanchet.plusoumoins.PlusOuMoinsMode2;
+import com.louisblanchet.Result;
 import org.apache.log4j.Logger;
 
 /**
  * Classe servant à afficher le menu pour le plus ou moins
  */
-public class Menu1 extends Menu{
+public class Menu1 extends Menu {
 
 
+    private final Config config;
     public boolean mode3;
+
+    public Menu1(Config config) {
+        this.config = config;
+    }
+
     /**
      * affiche le menu pour le jeu plus ou moins et analyse l'entrée faite par l'utilisateur pour l'envoyer à la classe correspondante
      * @return retourne la valeur obtenue pour réafficher le menu principal
@@ -25,17 +35,17 @@ public class Menu1 extends Menu{
             if (nbMenu1 == 1) {
                 mode3 = false;
 
-                PlusOuMoinsMode1 rand = new PlusOuMoinsMode1(false );
+                PlusOuMoinsMode1 rand = new PlusOuMoinsMode1(false , config);
                 retourMenu = rand.Initialisation();
             }
             else if (nbMenu1 == 2) {
 
-                PlusOuMoinsMode2 c = new PlusOuMoinsMode2(false );
+                PlusOuMoinsMode2 c = new PlusOuMoinsMode2(false ,config);
                 c.main();
             }
             else if (nbMenu1 == 3) {
                 mode3 = true ;
-                PlusOuMoinsMode1 f = new PlusOuMoinsMode1(true );
+                PlusOuMoinsMode1 f = new PlusOuMoinsMode1(true, config);
                 f.Initialisation();
             }
             else if (nbMenu1 == 4) {

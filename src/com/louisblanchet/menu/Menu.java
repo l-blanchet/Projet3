@@ -1,4 +1,4 @@
-package com.louisBlanchet;
+package com.louisblanchet.menu;
 
 import java.util.Scanner;
 

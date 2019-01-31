@@ -36,7 +36,7 @@ public abstract class Game {
             nbMystere = (+random1 + nbMystere);
         }
 
-        String[] nbMystereDecoupe = new String[nbMystere.length()];
+         nbMystereDecoupe = new String[nbMystere.length()];
 
         for (int compteur = 0; compteur < nbMystere.length(); compteur++) {
             String decoupage = nbMystere.substring(compteur, compteur + 1);
