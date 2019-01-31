@@ -1,6 +1,6 @@
-package com.louisblanchet.menu;
+package com.oclouis.menu;
 
-import com.louisblanchet.Result;
+import com.oclouis.Result;
 import org.apache.log4j.Logger;
 
 import java.util.Scanner;

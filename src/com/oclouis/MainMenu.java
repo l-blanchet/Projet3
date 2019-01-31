@@ -1,9 +1,9 @@
-package com.louisblanchet;
+package com.oclouis;
 
 
-import com.louisblanchet.menu.Menu1;
-import com.louisblanchet.menu.Menu2;
-import com.louisblanchet.menu.Menu3;
+import com.oclouis.menu.Menu1;
+import com.oclouis.menu.Menu2;
+import com.oclouis.menu.Menu3;
 import org.apache.log4j.Logger;
 
 import java.util.InputMismatchException;

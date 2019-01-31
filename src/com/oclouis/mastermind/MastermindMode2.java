@@ -1,8 +1,8 @@
-package com.louisblanchet.mastermind;
+package com.oclouis.mastermind;
 
-import com.louisblanchet.Config;
-import com.louisblanchet.Game;
-import com.louisblanchet.Result;
+import com.oclouis.Config;
+import com.oclouis.Game;
+import com.oclouis.Result;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -59,7 +59,7 @@ public class MastermindMode2 extends Game {
                 eliminationProposition();
             }
 
-            compteur = compteur + 1;
+
         } while (jouerEncore == Result.REJOUER || jouerEncore == Result.RELANCER);
         return Result.REJOUER;
     }
@@ -150,21 +150,25 @@ public class MastermindMode2 extends Game {
                 System.out.println("veillez à ne rentrer que des chiffres !");
             }
         } while (malPlaces < 0 || malPlaces > lenght);
-        System.out.println(bienPlaces);
-        System.out.println(malPlaces);
         bienEtMalPlaces = bienPlaces + malPlaces;
         return false;
     }
 
     public Result victoireVerif() {
+        compteur = compteur + 1;
         if (bienPlaces == lenght) {
-            System.out.println("Vous avez perdu !");
+            System.out.println("Vous avez perdu en "+ compteur + " coups ");
+            compteur = 0;
+            bienEtMalPlaces = 0;
             Result jouerEncore;
             jouerEncore = rejouer();
             return jouerEncore;
+
         }
         if (compteur == nbEssais) {
             System.out.println("Vous avez gagné");
+            compteur = 0;
+            bienEtMalPlaces = 0;
             Result jouerEncore;
             jouerEncore = rejouer();
             return jouerEncore;
@@ -193,10 +197,10 @@ public class MastermindMode2 extends Game {
         }
         for (int i = (int) pow(nbCouleur, (lenght - 1)); i < (pow(nbCouleur, lenght) - 1); i++) {
             essai = String.valueOf(i);
-
+            bienPlace = 0;
+            malPlace = 0;
             existence = solutionPossible.contains(essai);
             if (existence == true) {
-                System.out.println(essai);
                 nbPropose = String.valueOf(i);
                 for (int compteur = 0; compteur < nbPropose.length(); compteur++) {
                     String decoupage = nbPropose.substring(compteur, compteur + 1);
@@ -216,7 +220,7 @@ public class MastermindMode2 extends Game {
 
 
                 }
-                if (bienPlace >= bienPlaces && bienPlace <lenght) {
+                if (bienPlace >= bienPlaces && bienPlace <=lenght) {
 
                     test = test + 1;
 
@@ -273,22 +277,23 @@ public class MastermindMode2 extends Game {
                     }
                     bienEtMalPlace = bienPlace + malPlace;
                     if (bienEtMalPlace < bienEtMalPlaces) {
+                        if (essai.equals(nbMystere)){
+                            System.out.println("attention");
+                        }
                         solutionPossible.remove(essai);
                     }
-                    bienPlace = 0;
-                    malPlace = 0;
 
-                } else {
+
+                }else{
                     solutionPossible.remove(essai);
-
                 }
 
             }
 
         }
         boolean verif = solutionPossible.contains(nbMystere);
-        if (verif == false){
-            solutionPossible.add(nbMystere);
-        }
+        System.out.println(verif);
+        System.out.println(solutionPossible.size());
+
     }
 }

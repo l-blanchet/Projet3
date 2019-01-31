@@ -1,9 +1,9 @@
-package com.louisblanchet.menu;
+package com.oclouis.menu;
 
-import com.louisblanchet.Config;
-import com.louisblanchet.PlusOuMoinsMode1;
-import com.louisblanchet.PlusOuMoinsMode2;
-import com.louisblanchet.Result;
+import com.oclouis.Config;
+import com.oclouis.plusoumoins.PlusOuMoinsMode1;
+import com.oclouis.plusoumoins.PlusOuMoinsMode2;
+import com.oclouis.Result;
 import org.apache.log4j.Logger;
 
 /**

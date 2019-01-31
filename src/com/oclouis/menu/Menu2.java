@@ -1,9 +1,9 @@
-package com.louisblanchet.menu;
+package com.oclouis.menu;
 
-import com.louisblanchet.Config;
-import com.louisblanchet.MastermindMode1;
-import com.louisblanchet.MastermindMode2;
-import com.louisblanchet.Result;
+import com.oclouis.Config;
+import com.oclouis.mastermind.MastermindMode1;
+import com.oclouis.mastermind.MastermindMode2;
+import com.oclouis.Result;
 import org.apache.log4j.Logger;
 
 /**
@@ -39,7 +39,7 @@ public class Menu2 extends Menu {
             if (nbMenu2 == 2) {
                 mode3 = false;
                 MastermindMode2 test = new MastermindMode2(false,config);
-                test.test1();
+                retourMenu = test.main();
             }
             if (nbMenu2 == 3) {
                 System.out.println("test3");

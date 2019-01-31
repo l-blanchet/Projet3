@@ -1,9 +1,9 @@
-package com.louisblanchet.plusoumoins;
+package com.oclouis.plusoumoins;
 
 
-import com.louisblanchet.Config;
-import com.louisblanchet.Game;
-import com.louisblanchet.Result;
+import com.oclouis.Config;
+import com.oclouis.Game;
+import com.oclouis.Result;
 import org.apache.log4j.Logger;
 import java.util.Arrays;
 import java.util.InputMismatchException;

@@ -1,4 +1,4 @@
-package com.louisblanchet;
+package com.oclouis;
 
 import org.apache.log4j.Logger;
 
