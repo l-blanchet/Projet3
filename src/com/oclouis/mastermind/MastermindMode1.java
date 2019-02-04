@@ -51,7 +51,7 @@ public class MastermindMode1 extends Game {
         Result jouerEncore = Result.REJOUER;
         logger.info("lancement du jeu ou relance d'un tour");
         if (mode3 == true) {
-           // g = new MastermindMode2(mode3);
+            g = new MastermindMode2(mode3, configuration);
             nbEssais = 99;
         }
         if (mode3 == false) {
@@ -64,11 +64,11 @@ public class MastermindMode1 extends Game {
             }
             jouerEncore = this.essais(compteur);
             if (mode3 == true && 1 == compteur) {
-               // jouerEncore = g.main();
+               jouerEncore = g.main();
             }
             if (mode3 && compteur > 1) {
 
-               // jouerEncore = g.mode2();
+                jouerEncore = g.main();
             }
             if (jouerEncore == Result.RELANCER) {
                 compteur = 0;
@@ -108,7 +108,7 @@ public class MastermindMode1 extends Game {
         String[] propositionDecoupe = essai();
         boolean verif = false;
         logger.info("verification de rencontre des conditions de victoire ou défaite");
-        if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1) || compteur == 6) {
+        if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1) ) {
             verif = true;
         }
         System.out.println(Arrays.toString(propositionDecoupe));
@@ -123,37 +123,22 @@ public class MastermindMode1 extends Game {
     /**
      * cette méthode affiche le message de victoire/défaite et affiche le menu de sélection
      *
-     * @param compteur2          : équivalent du compteur  utilisé pour faire fonctionner la methode
      * @param propositionDecoupe : la proposition de l'utilisateur decoupé dans une String[]
      * @return : sert à indiquer ce que veux faire l'utilisateur après la partie; true pour relancer un niveau et false pour revenir au menu principal
      */
     private Result messageVictoire(int compteur2, String[] propositionDecoupe) {
 
-        compteur2 = compteur;
-        boolean rejouer;
         if (bienPlace == lenght) {
             System.out.println("Vous avez gagné en " + compteur + " essais, Bravo!");
             compteur = 0;
         }
-        if (compteur == 10) {
+        if (compteur == 10 && mode3 == false) {
             System.out.println("Vous avez perdu");
             compteur = 0;
         }
         return rejouer();
     }
 
-    /**
-     * cette méthode est le déclencheur du tour il appelle toutes les fonctions utiles pour le tour
-     *
-     * @return : retourne la proposition de l'utilisateur en String[]
-     */
-/*    protected String[] essai() {
-        String proposition = proposition();
-        String[] propositionDecoupe = decoupage(proposition);
-
-        verification(proposition, propositionDecoupe);
-        return propositionDecoupe;
-    }*/
 
     /**
      * cette méthode est là où l'ordinateur compare le nombre mystère et la proposition et affiche une String composé de "+-=" correspondant

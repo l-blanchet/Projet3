@@ -8,28 +8,21 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 import static java.lang.Math.pow;
-// demande du nb mystere
-// generer un hash set en fonction de nbcouleur et lenght
-// affichage de la premiere proposition
-// comparer les deux valeurs et sortir un resultat
-// verifier si le resultat n'est pas egal a 4 ou compteur superieur a N
-// SI resultat =4 || compteur sup a N
-// afficher le message victoire/defaite
-// affichage du menu
-// FIN SI
-// SINON
-// comparer le resultat obtenu avec les solutions possibles
-// generer un nouveau hash set en fonction de la reponse precedente
-//relancer un tour
+
+//todo Vérifier la saisie de l'utilisateur (nb de bien/mal placés)
+//todo Essayer de découper la fonction principale du mastermind en fonctions plus petites
+//todo Implémenter le mode duel du MasterMind
+//todo Commencer à réfléchir à comment et ou ajouter une (ou plusieurs) Interfaces Java
+//todo Essayer d'utiliser d'autres type de Collections Java (ArrayList par exemple à la place des tableaux)
 public class MastermindMode2 extends Game {
 
     private final Config configuration;
+    boolean mode3 ;
     HashSet solutionPossible = new HashSet();
     String nbMystere;
     String nbPropose;
     private Logger logger = Logger.getLogger(MastermindMode2.class);
     int lenght;
-    boolean mode3;
     int nbCouleur;
     int compteur = 0;
     int bienPlaces;
@@ -38,7 +31,8 @@ public class MastermindMode2 extends Game {
     int nbEssais;
 
     public MastermindMode2(boolean mode3, Config config) {
-        mode3 = this.mode3;
+        this.mode3 = mode3;
+        compteur = 0;
         this.configuration = config;
         nbCouleur = configuration.getNbCouleur();
         lenght = configuration.getLength();
@@ -57,6 +51,9 @@ public class MastermindMode2 extends Game {
             jouerEncore = victoireVerif();
             if (bienEtMalPlaces > 0) {
                 eliminationProposition();
+            }
+            if (mode3 == true ){
+                return jouerEncore;
             }
 
 
@@ -92,10 +89,9 @@ public class MastermindMode2 extends Game {
                 String convert = Integer.toString(i, nbCouleur);
                 solutionPossible.add(convert);
             }
-            System.out.println(solutionPossible);
             int n;
             n = solutionPossible.size();
-            System.out.println(n);
+            logger.debug("longueur de la hash set" +n);
         }
         if (lenght <= 8) {
             //todo ajouter le comportement pour une lenght superieure à 8
@@ -122,13 +118,14 @@ public class MastermindMode2 extends Game {
 
         }
 
-        System.out.println(nbPropose);
-        System.out.println(nbMystere);
+        logger.debug("nb Proposé" +nbPropose);
+        logger.debug("nb Mystere" +nbMystere);
         return nbPropose;
     }
 
     public boolean verification(String proposition, String[] propositionDecoupe) {
-        System.out.println(nbPropose);
+        System.out.println("le nombre proposé par l'ordinateur est : "+nbPropose);
+        System.out.println("Pour rappel le nombre que vous avez proposé est : "+nbMystere);
         Scanner scbp = new Scanner(System.in);
         Scanner scmp = new Scanner(System.in);
         do {
@@ -165,7 +162,7 @@ public class MastermindMode2 extends Game {
             return jouerEncore;
 
         }
-        if (compteur == nbEssais) {
+        if (compteur == nbEssais && mode3 == false) {
             System.out.println("Vous avez gagné");
             compteur = 0;
             bienEtMalPlaces = 0;
@@ -179,7 +176,7 @@ public class MastermindMode2 extends Game {
     public void eliminationProposition() {
 
 
-        String nbPropose;
+        String nbProposeBoucle;
         String nbProposeDecoupet[] = new String[lenght];
         String nbMysteredecoupet[] = new String[lenght];
         int compteurSpe = 0;
@@ -200,10 +197,14 @@ public class MastermindMode2 extends Game {
             bienPlace = 0;
             malPlace = 0;
             existence = solutionPossible.contains(essai);
+            if (essai.equals(nbPropose) ){
+                solutionPossible.remove(essai);
+                existence = false;
+            }
             if (existence == true) {
-                nbPropose = String.valueOf(i);
-                for (int compteur = 0; compteur < nbPropose.length(); compteur++) {
-                    String decoupage = nbPropose.substring(compteur, compteur + 1);
+                nbProposeBoucle = String.valueOf(i);
+                for (int compteur = 0; compteur < nbProposeBoucle.length(); compteur++) {
+                    String decoupage = nbProposeBoucle.substring(compteur, compteur + 1);
                     nbProposeDecoupet[compteur] = decoupage;
                 }
                 for (int verificateur = 0; verificateur < nbMysteredecoupet.length; verificateur++) {
@@ -292,8 +293,8 @@ public class MastermindMode2 extends Game {
 
         }
         boolean verif = solutionPossible.contains(nbMystere);
-        System.out.println(verif);
-        System.out.println(solutionPossible.size());
+        logger.debug("verification si le nombre mysere est toujours dans l hash set " +verif);
+        logger.debug("nombre de solutions dans la hash set " +solutionPossible.size());
 
     }
 }

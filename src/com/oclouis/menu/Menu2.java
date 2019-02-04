@@ -42,7 +42,8 @@ public class Menu2 extends Menu {
                 retourMenu = test.main();
             }
             if (nbMenu2 == 3) {
-                System.out.println("test3");
+                MastermindMode1 rand = new MastermindMode1(true, config);
+                retourMenu = rand.Initialisation();
             }
             if (nbMenu2 == 4) {
                 return Result.REJOUER;
