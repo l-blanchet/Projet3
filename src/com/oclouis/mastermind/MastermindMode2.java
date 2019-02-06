@@ -11,7 +11,6 @@ import static java.lang.Math.pow;
 
 //todo Vérifier la saisie de l'utilisateur (nb de bien/mal placés)
 //todo Essayer de découper la fonction principale du mastermind en fonctions plus petites
-//todo Implémenter le mode duel du MasterMind
 //todo Commencer à réfléchir à comment et ou ajouter une (ou plusieurs) Interfaces Java
 //todo Essayer d'utiliser d'autres type de Collections Java (ArrayList par exemple à la place des tableaux)
 public class MastermindMode2 extends Game {
@@ -93,9 +92,19 @@ public class MastermindMode2 extends Game {
             n = solutionPossible.size();
             logger.debug("longueur de la hash set" +n);
         }
-        if (lenght <= 8) {
-            //todo ajouter le comportement pour une lenght superieure à 8
+        if (lenght >= 8) {
+            int min =(int) pow(nbCouleur,(lenght-1));
+            int max =  (int)( min + pow(nbCouleur,3));
+            for (int i = min; i < max; i++) {
+
+                String convert = Integer.toString(i, nbCouleur);
+                solutionPossible.add(convert);
+            }
+            int n;
+            n = solutionPossible.size();
+            logger.debug("longueur de la hash set" +n);
         }
+
     }
 
     public String proposition() {
@@ -192,7 +201,7 @@ public class MastermindMode2 extends Game {
             String decoupage = nbMystere.substring(compteur, compteur + 1);
             nbMysteredecoupet[compteur] = decoupage;
         }
-        for (int i = (int) pow(nbCouleur, (lenght - 1)); i < (pow(nbCouleur, lenght) - 1); i++) {
+        for (int i = (int) pow(10, (lenght - 1)); i < (pow(10, lenght) - 1); i++) {
             essai = String.valueOf(i);
             bienPlace = 0;
             malPlace = 0;
@@ -201,7 +210,7 @@ public class MastermindMode2 extends Game {
                 solutionPossible.remove(essai);
                 existence = false;
             }
-            if (existence == true) {
+            if (existence == true || (lenght>= 8 && compteur == 1 && existence == false)) {
                 nbProposeBoucle = String.valueOf(i);
                 for (int compteur = 0; compteur < nbProposeBoucle.length(); compteur++) {
                     String decoupage = nbProposeBoucle.substring(compteur, compteur + 1);
@@ -277,11 +286,11 @@ public class MastermindMode2 extends Game {
                         compteurSpe = 0;
                     }
                     bienEtMalPlace = bienPlace + malPlace;
-                    if (bienEtMalPlace < bienEtMalPlaces) {
-                        if (essai.equals(nbMystere)){
-                            System.out.println("attention");
-                        }
+                    if (bienEtMalPlace < bienEtMalPlaces && existence == true ) {
                         solutionPossible.remove(essai);
+                    }
+                    if (bienEtMalPlace >= bienEtMalPlaces && existence == false){
+                        solutionPossible.add(essai);
                     }
 
 

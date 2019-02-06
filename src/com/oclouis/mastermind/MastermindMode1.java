@@ -18,6 +18,7 @@ public class MastermindMode1 extends Game {
     boolean devMod;
     int nbEssais;
     private boolean mode3;
+
     public MastermindMode1(boolean mode3, Config config) {
         this.mode3 = mode3;
         this.configuration = config;
@@ -64,7 +65,7 @@ public class MastermindMode1 extends Game {
             }
             jouerEncore = this.essais(compteur);
             if (mode3 == true && 1 == compteur) {
-               jouerEncore = g.main();
+                jouerEncore = g.main();
             }
             if (mode3 && compteur > 1) {
 
@@ -108,7 +109,7 @@ public class MastermindMode1 extends Game {
         String[] propositionDecoupe = essai();
         boolean verif = false;
         logger.info("verification de rencontre des conditions de victoire ou défaite");
-        if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1) ) {
+        if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1)) {
             verif = true;
         }
         System.out.println(Arrays.toString(propositionDecoupe));
@@ -149,7 +150,7 @@ public class MastermindMode1 extends Game {
      */
     protected boolean verification(String proposition, String[] propositionDecoupe) {
 
-         logger.info("vérification de la proposition de l'utilisateur");
+        logger.info("vérification de la proposition de l'utilisateur");
         String[] reponse = new String[proposition.length()];
         String nbMystere;
         int compteurSpe = 0;
@@ -168,7 +169,7 @@ public class MastermindMode1 extends Game {
                 bienPlace = bienPlace + 1;
             }
         }
-        int nvlenght = lenght -bienPlace;
+        int nvlenght = lenght - bienPlace;
         String nvNbMystereDecoupe[] = new String[nvlenght];
         String nvPropositionDecoupe[] = new String[nvlenght];
         for (int verificateur = 0; verificateur < proposition.length(); verificateur++) {
@@ -191,78 +192,40 @@ public class MastermindMode1 extends Game {
         int nvllePropositionDecoupe;
         int nvNbMystDecoupe;
 
-        for (int compteur = 0 ;compteur<nvNbMystereDecoupe.length;  compteur++ ) {
-             nvllePropositionDecoupe = Integer.parseInt(nvPropositionDecoupe[compteur]);
+        for (int compteur = 0; compteur < nvNbMystereDecoupe.length; compteur++) {
+            nvllePropositionDecoupe = Integer.parseInt(nvPropositionDecoupe[compteur]);
             int test = 0;
             do {
                 nvNbMystDecoupe = Integer.parseInt(nvNbMystereDecoupe[compteurSpe]);
                 if (nvllePropositionDecoupe == nvNbMystDecoupe) {
                     malPlace++;
                     test = nvlenght;
-                }
-                else {
+                } else {
                     compteurSpe++;
                     test++;
                 }
-            } while ( test < nvlenght);
+            } while (test < nvlenght);
             compteurSpe = 0;
         }
-        String mascBien=  " bien placé";
+        String mascBien = " bien placé";
         String plurBien = " bien placés";
         String mascMal = " mal placé";
         String plurMal = " mal placés";
-        if(bienPlace<=1){
-            System.out.println("réponse: "+bienPlace+ mascBien);
-        }else{
-            System.out.println("réponse: "+bienPlace+ plurBien);
+        if (bienPlace <= 1) {
+            System.out.println("réponse: " + bienPlace + mascBien);
+        } else {
+            System.out.println("réponse: " + bienPlace + plurBien);
         }
-        if (malPlace <= 1){
-            System.out.println("         "+malPlace+ mascMal);
-        }else{
-            System.out.println("         "+malPlace+ plurMal);
+        if (malPlace <= 1) {
+            System.out.println("         " + malPlace + mascMal);
+        } else {
+            System.out.println("         " + malPlace + plurMal);
         }
         bienPlace = 0;
         malPlace = 0;
         return true;
     }
 
-    /**
-     * cette méthode demande à l'utilisateur d'entrer une proposition
-     *
-     * @return : retourne la proposition saisi par l'utilisateur
-     */
-/*    private String proposition() {
-        boolean checkeur = false;
-        String proposition = null;
-        int essai;
-
-
-        while (!checkeur) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("proposition:");
-
-            try {
-                essai = sc.nextInt();
-                proposition = Integer.toString(essai);
-
-                if (proposition.length() < nbMysteredecoupe1.length || proposition.length() > nbMysteredecoupe1.length) {
-                    System.out.println("vous n'avez pas rentré le bon nombre de chiffres réesayez");
-                    System.out.println(Arrays.toString(nbMystereDecoupe));
-                    logger.debug("la proposition ne comportait pas le bon nombre de chiffre");
-                } else {
-                    checkeur = true;
-                }
-            } catch (InputMismatchException e) {
-                logger.debug("l'utilisateur n'a pas rentré de chiffre");
-                System.out.println("veillez à ne rentrer que des chiffres !");
-                checkeur = false;
-
-            }
-
-        }
-        return proposition;
-
-    }*/
 }
 
 
