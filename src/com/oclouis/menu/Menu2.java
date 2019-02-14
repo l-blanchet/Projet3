@@ -1,6 +1,8 @@
 package com.oclouis.menu;
 
 import com.oclouis.Config;
+import com.oclouis.Mode2;
+import com.oclouis.Mode1;
 import com.oclouis.mastermind.MastermindMode1;
 import com.oclouis.mastermind.MastermindMode2;
 import com.oclouis.Result;
@@ -22,10 +24,9 @@ public class Menu2 extends Menu {
      * @return retourne le choix de l'utilisateur dans le menu de fin de jeu
      */
     public Result specialMenu2(){
-        int rejouer ;
         Logger logger = Logger.getLogger(Menu1.class);
         int nbMenu2;
-        Result retourMenu = Result.QUITTER;
+
         logger.info("affichage du menu pour le mode 1");
         do {
 
@@ -33,17 +34,17 @@ public class Menu2 extends Menu {
             if (nbMenu2 == 1) {
                 mode3 = false;
 
-                MastermindMode1 rand = new MastermindMode1(false, config);
-                retourMenu = rand.Initialisation();
+                Mode1 rand = new MastermindMode1(false, config);
+                rand.initialisation();
             }
             if (nbMenu2 == 2) {
                 mode3 = false;
-                MastermindMode2 test = new MastermindMode2(false,config);
-                retourMenu = test.main();
+                Mode2 test = new MastermindMode2(false,config);
+                 test.main();
             }
             if (nbMenu2 == 3) {
                 MastermindMode1 rand = new MastermindMode1(true, config);
-                retourMenu = rand.Initialisation();
+                rand.initialisation();
             }
             if (nbMenu2 == 4) {
                 return Result.REJOUER;

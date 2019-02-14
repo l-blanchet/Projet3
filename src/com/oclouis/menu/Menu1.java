@@ -1,9 +1,11 @@
 package com.oclouis.menu;
 
 import com.oclouis.Config;
+import com.oclouis.Mode2;
+import com.oclouis.Mode1;
+import com.oclouis.Result;
 import com.oclouis.plusoumoins.PlusOuMoinsMode1;
 import com.oclouis.plusoumoins.PlusOuMoinsMode2;
-import com.oclouis.Result;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,7 +26,6 @@ public class Menu1 extends Menu {
      * @return retourne la valeur obtenue pour réafficher le menu principal
      */
     public Result specialMenu1() {
-        int rejouer ;
         Logger logger = Logger.getLogger(Menu1.class);
         int nbMenu1;
         Result retourMenu = Result.QUITTER;
@@ -35,27 +36,25 @@ public class Menu1 extends Menu {
             if (nbMenu1 == 1) {
                 mode3 = false;
 
-                PlusOuMoinsMode1 rand = new PlusOuMoinsMode1(false , config);
-                retourMenu = rand.Initialisation();
+
+                Mode1 rand = new PlusOuMoinsMode1(false , config);
+                retourMenu = rand.initialisation();
             }
             else if (nbMenu1 == 2) {
 
-                PlusOuMoinsMode2 c = new PlusOuMoinsMode2(false ,config);
+                Mode2 c = new PlusOuMoinsMode2(false ,config);
                 c.main();
             }
             else if (nbMenu1 == 3) {
                 mode3 = true ;
                 PlusOuMoinsMode1 f = new PlusOuMoinsMode1(true, config);
-                f.Initialisation();
+                f.initialisation();
             }
             else if (nbMenu1 == 4) {
                  return Result.REJOUER;
             }
         }while (nbMenu1<1|| nbMenu1>4);
         return retourMenu;
-        }
-    public boolean isMode3() {
-        return mode3;
     }
 }
 

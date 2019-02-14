@@ -3,6 +3,7 @@ package com.oclouis.plusoumoins;
 
 import com.oclouis.Config;
 import com.oclouis.Game;
+import com.oclouis.Mode2;
 import com.oclouis.Result;
 import org.apache.log4j.Logger;
 import java.util.Arrays;
@@ -14,11 +15,11 @@ import static java.lang.Math.pow;
  * cette classe joue le plus ou moins en mode défenseur
  */
 
-public class PlusOuMoinsMode2 extends Game {
+public class PlusOuMoinsMode2 extends Game implements Mode2 {
     private final Config configuration;
     boolean mode3;
-    String signe1;
-    int chiffreCourantTest;
+    String signeReponsePrecedente;
+    int chiffreProposeTransitoire;
     int chiffre;
     boolean devMod;
     private Logger logger = Logger.getLogger(PlusOuMoinsMode2.class);
@@ -153,9 +154,9 @@ public class PlusOuMoinsMode2 extends Game {
         logger.info("récupératon de la réponse utilisateur ");
         boolean testrecup = true;
         String reponseNonDecoupe = null;
-        System.out.println(Arrays.toString(reponse));
-        System.out.println(Arrays.toString(nbPropose));
-        System.out.println(Arrays.toString(this.nbMystereDecoupe));
+       // System.out.println( Arrays.toString(reponse));/todo ne pas oublier de voir l utilite de cette ligne
+        System.out.println("Ceci est le nombre que l'ordinateur vous propose : " +Arrays.toString(nbPropose));
+        System.out.println("Ceci est le nombre que vous avez proposé : " +Arrays.toString(this.nbMystereDecoupe));
 
         do {
             System.out.println("Veuillez rentrer des + et des - en vous basant sur la reponse de l ordinateur par rapport à la votre ");
@@ -173,7 +174,7 @@ public class PlusOuMoinsMode2 extends Game {
             String decoupage = reponseNonDecoupe.substring(i, i + 1);
             reponse[i] = decoupage;
         }
-        chiffreCourantTest = 0;
+        chiffreProposeTransitoire = 0;
 
     }
 
@@ -209,16 +210,15 @@ public class PlusOuMoinsMode2 extends Game {
     public String[] nbPropose() {
         logger.info("analyse de la réponse utilisateur et proposition d'une réponse adéquate");
         nbProposePrecedent = nbPropose;
-        int test = lenght - 1;
-        int boucletest = 0;
+        int compteurTableau = 0;
 
 
-        for (int boucle = (test); boucle >= 0; boucle--) {
-            int chiffreprec = Integer.parseInt(String.valueOf(nbProposePrecedent[boucletest]));
+        for (int boucle = lenght-1; boucle >= 0; boucle--) {
+            int chiffreprec = Integer.parseInt(String.valueOf(nbProposePrecedent[compteurTableau]));
 
-            signe1 = String.valueOf(reponse[boucletest]);
-            boucletest = boucletest + 1;
-            chiffre = proposechiffre(0, chiffreprec, signe1);
+            signeReponsePrecedente = String.valueOf(reponse[compteurTableau]);
+            compteurTableau = compteurTableau + 1;
+            chiffre = proposechiffre(0, chiffreprec, signeReponsePrecedente);
 
 
         }
@@ -248,33 +248,33 @@ public class PlusOuMoinsMode2 extends Game {
         int resultat = 0;
 
 
-        if (chiffrePrecedent == 3 && signe1.equals("+")) {
+        if (chiffrePrecedent == 3 && signeReponsePrecedente.equals("+")) {
             valeurMax = 5;
         }
 
-        if (chiffrePrecedent == 7 && signe1.equals("-")) {
+        if (chiffrePrecedent == 7 && signeReponsePrecedente.equals("-")) {
             valeurMin = 5;
         }
-        if (signe1.equals("=")) {
+        if (signeReponsePrecedente.equals("=")) {
             resultat = chiffrePrecedent;
             boucleAlgo--;
         }
 
-        if (signe1.equals("+")) {
+        if (signeReponsePrecedente.equals("+")) {
             resultat = ((chiffrePrecedent + valeurMax) / 2);
             valeurMax = 10;
             boucleAlgo--;
 
         }
-        if (signe1.equals("-")) {
+        if (signeReponsePrecedente.equals("-")) {
             resultat = ((chiffrePrecedent + valeurMin) / 2);
             valeurMin = 1;
             boucleAlgo--;
         }
 
         int chiffreCourantPartiel = (int) (resultat * (pow(10, boucleAlgo)));
-        chiffreCourantTest = chiffreCourantPartiel + chiffreCourantTest;
-        chiffreCourant = chiffreCourantTest;
+        chiffreProposeTransitoire = chiffreCourantPartiel + chiffreProposeTransitoire;
+        chiffreCourant = chiffreProposeTransitoire;
         return chiffreCourant;
 
     }

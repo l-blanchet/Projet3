@@ -34,7 +34,7 @@ public class MainMenu {
                System.out.println("--------MENU---------");
                System.out.println("1- Plus ou Moins");
                System.out.println("2- MasterMind");
-               System.out.println("3- Options");
+               System.out.println("3- Explications");
                System.out.println("4- Quitter");
 
                Scanner sc = new Scanner(System.in);

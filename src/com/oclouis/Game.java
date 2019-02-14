@@ -14,7 +14,7 @@ import static java.lang.Math.random;
  */
 public abstract class Game {
     protected String[] nbMystereDecoupe;
-    protected String[] nbMysteredecoupe1;
+    protected String[] nbMysteredecoupePrecedent;
     int rejouer = 0;
     protected Logger logger = Logger.getLogger(Game.class);
 
@@ -22,9 +22,9 @@ public abstract class Game {
         /**
          * méthode générant un nombre aéatoire en utilisant la fonction random
          */
-        double d = random();
-        d *= pow(10, lenght);
-        int n = (int) d;
+        double aleatoire = random();
+        aleatoire *= pow(10, lenght);
+        int n = (int) aleatoire;
         String nbMystere;
         nbMystere = Integer.toString(n);
 
@@ -86,9 +86,6 @@ public abstract class Game {
         } while ((selection < 1) || (selection > 3));
         return  null;
     }
-    public int getRejouer() {
-        return rejouer;
-    }
 
     /**
      * cette méthode sert à decouper la proposition et à la transformer en String[]
@@ -141,7 +138,7 @@ public abstract class Game {
                 essai = sc.nextInt();
                 proposition = Integer.toString(essai);
 
-                if (proposition.length() < nbMysteredecoupe1.length || proposition.length() > nbMysteredecoupe1.length) {
+                if (proposition.length() < nbMysteredecoupePrecedent.length || proposition.length() > nbMysteredecoupePrecedent.length) {
                     System.out.println("vous n'avez pas rentré le bon nombre de chiffres réesayez");
                     System.out.println(Arrays.toString(nbMystereDecoupe));
                     logger.debug("la proposition ne comportait pas le bon nombre de chiffre");

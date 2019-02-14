@@ -2,6 +2,7 @@ package com.oclouis.plusoumoins;
 
 import com.oclouis.Config;
 import com.oclouis.Game;
+import com.oclouis.Mode1;
 import com.oclouis.Result;
 import org.apache.log4j.Logger;
 
@@ -10,7 +11,7 @@ import java.util.Arrays;
 /**
  * cette classe joue le plus ou moins en mode attaquant
  */
-public class PlusOuMoinsMode1 extends Game {
+public class PlusOuMoinsMode1 extends Game implements Mode1 {
     private final Config config;
     protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
     int compteur = 0;
@@ -18,6 +19,7 @@ public class PlusOuMoinsMode1 extends Game {
     boolean devMod;
     private boolean mode3;
     int nbEssais;
+
     public PlusOuMoinsMode1(boolean mode3, Config config) {
         this.mode3 = mode3;
         this.config = config;
@@ -28,7 +30,7 @@ public class PlusOuMoinsMode1 extends Game {
      *
      * @return : retourne la valeur obtenue dans messageVictoire
      */
-    public Result Initialisation() {
+    public Result initialisation() {
         lenght = config.getLength();
         devMod = config.isDevMod();
         nbEssais = config.getNbEssai();
@@ -47,11 +49,11 @@ public class PlusOuMoinsMode1 extends Game {
      * @return : retourne la valeur obtenue dans messageVictoire
      */
     public Result mode1() {
-        PlusOuMoinsMode2 g = null;
+        PlusOuMoinsMode2 modeHybride = null;
         Result jouerEncore = Result.REJOUER;
         logger.info("lancement du jeu ou relance d'un tour");
         if (mode3 == true) {
-            g = new PlusOuMoinsMode2(mode3,config);
+            modeHybride = new PlusOuMoinsMode2(mode3, config);
             nbEssais = 99;
         }
         if (mode3 == false) {
@@ -64,11 +66,11 @@ public class PlusOuMoinsMode1 extends Game {
             }
             jouerEncore = this.essais(compteur);
             if (mode3 == true && 1 == compteur) {
-                jouerEncore = g.main();
+                jouerEncore = modeHybride.main();
             }
             if (mode3 && compteur > 1) {
 
-                jouerEncore = g.mode2();
+                jouerEncore = modeHybride.mode2();
             }
             if (jouerEncore == Result.RELANCER) {
                 compteur = 0;
@@ -87,7 +89,7 @@ public class PlusOuMoinsMode1 extends Game {
         logger.info("lancement de randomizer");
 
         nbMystereDecoupe = getRandomized(lenght);
-        nbMysteredecoupe1 = nbMystereDecoupe;
+        nbMysteredecoupePrecedent = nbMystereDecoupe;
         logger.info("randomizer vient de renvoyer le nombre mystere" + nbMystereDecoupe);
         return true;
     }
@@ -95,26 +97,26 @@ public class PlusOuMoinsMode1 extends Game {
     /**
      * cette méthode effectue un essai
      *
-     * @param compteur1 : utilisé en tant qu'argument à la place de compteur, il sert aussi d'affichage du nombre de tours
+     * @param affichageCompteur : utilisé en tant qu'argument à la place de compteur, il sert aussi d'affichage du nombre de tours
      * @return : sert à indiquer ce que l'utilisateur veut faire en renvoyant le booléen obtenu dans messageVictoire
      */
-    private Result essais(int compteur1) {
-        compteur1 = compteur;
+    private Result essais(int affichageCompteur) {
+        affichageCompteur = compteur;
         if (devMod == true) {
             System.out.println(Arrays.toString(nbMystereDecoupe));
         }
         compteur = compteur + 1;
-        System.out.println("tour effectué: " + compteur1);
+        System.out.println("tour effectué: " + affichageCompteur);
         String[] propositionDecoupe = essai();
         boolean verif = false;
         logger.info("verification de rencontre des conditions de victoire ou défaite");
-        if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1) || compteur == 6) {
+        if (Arrays.equals(propositionDecoupe, nbMysteredecoupePrecedent) || compteur == 6) {
             verif = true;
         }
         System.out.println(Arrays.toString(propositionDecoupe));
         if (verif == true) {
             Result jouerEncore;
-            jouerEncore = this.messageVictoire(compteur, propositionDecoupe);
+            jouerEncore = this.messageVictoire(propositionDecoupe);
             return jouerEncore;
         }
         return Result.REJOUER;
@@ -123,15 +125,12 @@ public class PlusOuMoinsMode1 extends Game {
     /**
      * cette méthode affiche le message de victoire/défaite et affiche le menu de sélection
      *
-     * @param compteur2          : équivalent du compteur  utilisé pour faire fonctionner la methode
      * @param propositionDecoupe : la proposition de l'utilisateur decoupé dans une String[]
      * @return : sert à indiquer ce que veux faire l'utilisateur après la partie; true pour relancer un niveau et false pour revenir au menu principal
      */
-    private Result messageVictoire(int compteur2, String[] propositionDecoupe) {
+    private Result messageVictoire(String[] propositionDecoupe) {
 
-        compteur2 = compteur;
-        boolean rejouer;
-        if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1)) {
+        if (Arrays.equals(propositionDecoupe, nbMysteredecoupePrecedent)) {
             System.out.println("Vous avez gagné en " + compteur + " essais, Bravo!");
             compteur = 0;
         }
@@ -173,22 +172,5 @@ public class PlusOuMoinsMode1 extends Game {
         System.out.println("réponse" + Arrays.toString(reponse));
         return true;
     }
-
-    /**
-     * cette méthode sert à decouper la proposition et à la transformer en String[]
-     *
-     * @param proposition : obligatoire pour la découper
-     * @return :retourne la proposition de l'utilisateur en String[]
-     */
-/*    protected String[] decoupage(String proposition) {
-        logger.info("découpage de la proposition de l'utilisateur");
-        String[] propositionDecoupe = new String[proposition.length()];
-
-        for (int compteurtest = 0; compteurtest < proposition.length(); compteurtest++) {
-            String decoupage = proposition.substring(compteurtest, compteurtest + 1);
-            propositionDecoupe[compteurtest] = decoupage;
-        }
-        return propositionDecoupe;
-    }*/
 
 }

@@ -1,14 +1,12 @@
 package com.oclouis.mastermind;
 
-import com.oclouis.Config;
-import com.oclouis.Game;
-import com.oclouis.Result;
+import com.oclouis.*;
 import com.oclouis.plusoumoins.PlusOuMoinsMode1;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 
-public class MastermindMode1 extends Game {
+public class MastermindMode1 extends Game implements Mode1 {
     private final Config configuration;
     protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
     int compteur = 0;
@@ -29,7 +27,7 @@ public class MastermindMode1 extends Game {
      *
      * @return : retourne la valeur obtenue dans messageVictoire
      */
-    public Result Initialisation() {
+    public Result initialisation() {
         lenght = configuration.getLength();
         devMod = configuration.isDevMod();
         nbEssais = configuration.getNbEssai();
@@ -48,11 +46,11 @@ public class MastermindMode1 extends Game {
      * @return : retourne la valeur obtenue dans messageVictoire
      */
     public Result mode1() {
-        MastermindMode2 g = null;
+        Mode2 mode3Initializer = null;
         Result jouerEncore = Result.REJOUER;
         logger.info("lancement du jeu ou relance d'un tour");
         if (mode3 == true) {
-            g = new MastermindMode2(mode3, configuration);
+            mode3Initializer = new MastermindMode2(mode3, configuration);
             nbEssais = 99;
         }
         if (mode3 == false) {
@@ -65,11 +63,11 @@ public class MastermindMode1 extends Game {
             }
             jouerEncore = this.essais(compteur);
             if (mode3 == true && 1 == compteur) {
-                jouerEncore = g.main();
+                jouerEncore = mode3Initializer.main();
             }
             if (mode3 && compteur > 1) {
 
-                jouerEncore = g.main();
+                jouerEncore = mode3Initializer.main();
             }
             if (jouerEncore == Result.RELANCER) {
                 compteur = 0;
@@ -88,7 +86,7 @@ public class MastermindMode1 extends Game {
         logger.info("lancement de randomizer");
 
         nbMystereDecoupe = getRandomized(lenght);
-        nbMysteredecoupe1 = nbMystereDecoupe;
+        nbMysteredecoupePrecedent = nbMystereDecoupe;
         logger.info("randomizer vient de renvoyer le nombre mystere" + Arrays.toString(nbMystereDecoupe));
         return true;
     }
@@ -96,20 +94,20 @@ public class MastermindMode1 extends Game {
     /**
      * cette méthode effectue un essai
      *
-     * @param compteur1 : utilisé en tant qu'argument à la place de compteur, il sert aussi d'affichage du nombre de tours
+     * @param afficheurTour : utilisé en tant qu'argument à la place de compteur, il sert aussi d'affichage du nombre de tours
      * @return : sert à indiquer ce que l'utilisateur veut faire en renvoyant le booléen obtenu dans messageVictoire
      */
-    private Result essais(int compteur1) {
-        compteur1 = compteur;
+    private Result essais(int afficheurTour) {
+        afficheurTour = compteur;
         if (devMod == true) {
             System.out.println(Arrays.toString(nbMystereDecoupe));
         }
         compteur = compteur + 1;
-        System.out.println("tour effectué: " + compteur1);
+        System.out.println("tour effectué: " + afficheurTour);
         String[] propositionDecoupe = essai();
         boolean verif = false;
         logger.info("verification de rencontre des conditions de victoire ou défaite");
-        if (Arrays.equals(propositionDecoupe, nbMysteredecoupe1)) {
+        if (Arrays.equals(propositionDecoupe, nbMysteredecoupePrecedent)) {
             verif = true;
         }
         System.out.println(Arrays.toString(propositionDecoupe));
@@ -151,7 +149,6 @@ public class MastermindMode1 extends Game {
     protected boolean verification(String proposition, String[] propositionDecoupe) {
 
         logger.info("vérification de la proposition de l'utilisateur");
-        String[] reponse = new String[proposition.length()];
         String nbMystere;
         int compteurSpe = 0;
         int compteurNbPropose = 0;
