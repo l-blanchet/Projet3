@@ -16,12 +16,9 @@ public abstract class Game {
     protected String[] nbMystereDecoupe;
     protected String[] nbMysteredecoupePrecedent;
     int rejouer = 0;
-    protected Logger logger = Logger.getLogger(Game.class);
+    private final Logger logger = Logger.getLogger(Game.class);
 
-    public String[] getRandomized(int lenght ) {
-        /**
-         * méthode générant un nombre aéatoire en utilisant la fonction random
-         */
+    protected String[] getRandomized(int lenght) {
         double aleatoire = random();
         aleatoire *= pow(10, lenght);
         int n = (int) aleatoire;
@@ -93,7 +90,7 @@ public abstract class Game {
      * @param proposition : obligatoire pour la découper
      * @return :retourne la proposition de l'utilisateur en String[]
      */
-    protected String[] decoupage(String proposition) {
+    private String[] decoupage(String proposition) {
         logger.info("découpage de la proposition de l'utilisateur");
         String[] propositionDecoupe = new String[proposition.length()];
 
@@ -117,7 +114,7 @@ public abstract class Game {
         return propositionDecoupe;
     }
 
-    protected abstract boolean verification(String proposition, String[] propositionDecoupe);
+    protected abstract void verification(String proposition, String[] propositionDecoupe);
 
     /**
      * cette méthode demande à l'utilisateur d'entrer une proposition

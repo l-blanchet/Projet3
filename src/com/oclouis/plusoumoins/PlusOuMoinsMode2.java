@@ -17,20 +17,17 @@ import static java.lang.Math.pow;
 
 public class PlusOuMoinsMode2 extends Game implements Mode2 {
     private final Config configuration;
-    boolean mode3;
-    String signeReponsePrecedente;
-    int chiffreProposeTransitoire;
-    int chiffre;
-    boolean devMod;
-    private Logger logger = Logger.getLogger(PlusOuMoinsMode2.class);
+    private final boolean mode3;
+    private String signeReponsePrecedente;
+    private int chiffreProposeTransitoire;
+    private int chiffre;
+    private final Logger logger = Logger.getLogger(PlusOuMoinsMode2.class);
     private String[] nbPropose;
-    private String[] nbProposePrecedent;
     private String[] reponse;
     private String[] nbMystereDecoupe;
     private int lenght;
     private int compteur;
     private int boucleAlgo;
-    private boolean verif;
 
     public PlusOuMoinsMode2(boolean mode3, Config config) {
         this.mode3 = mode3;
@@ -44,12 +41,12 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
      */
     public Result main() {
         Result jouerEncore;
-        boolean check = true;
+        boolean check;
         do {
             logger.info("lancement d'un tour");
             check = false;
             jouerEncore = this.recupNbMystere();
-        } while (check == true);
+        } while (check);
         return jouerEncore;
     }
 
@@ -58,10 +55,10 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
      *
      * @return retourne la sélection de l'utilisateur dans la méthode rejouer()
      */
-    public Result recupNbMystere() {
+    private Result recupNbMystere() {
         logger.info("mise à zéro des valeurs");
         lenght = configuration.getLength();
-        devMod = configuration.isDevMod();
+        boolean devMod = configuration.isDevMod();
         compteur = configuration.getNbEssai();
 
         nbPropose = new String[lenght];
@@ -78,7 +75,7 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
         }
 
         boucleAlgo = 4;
-        verif = false;
+        boolean verif = false;
 
 
         int nbMystere;
@@ -122,13 +119,13 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
                 this.affichePropositionParDefaut();
             }
             this.nbPropose();
-            if (mode3 == false) {
+            if (!mode3) {
                 compteur = compteur + 1;
             }
             this.saisieUserReponse();
 
             jouerEncore = this.verification();
-            if (mode3 == true) {
+            if (mode3) {
                 return jouerEncore;
             }
 
@@ -168,7 +165,7 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
                 System.out.println("veillez à ne rentrer que des plus ou moins !");
                 testrecup = false;
             }
-        } while (testrecup == false);
+        } while (!testrecup);
 
         for (int i = 0; i < reponseNonDecoupe.length(); i++) {
             String decoupage = reponseNonDecoupe.substring(i, i + 1);
@@ -207,9 +204,9 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
      *
      * @return retourne la nouvelle valeur que l'ordinateur proposera
      */
-    public String[] nbPropose() {
+    private void nbPropose() {
         logger.info("analyse de la réponse utilisateur et proposition d'une réponse adéquate");
-        nbProposePrecedent = nbPropose;
+        String[] nbProposePrecedent = nbPropose;
         int compteurTableau = 0;
 
 
@@ -218,7 +215,7 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
 
             signeReponsePrecedente = String.valueOf(reponse[compteurTableau]);
             compteurTableau = compteurTableau + 1;
-            chiffre = proposechiffre(0, chiffreprec, signeReponsePrecedente);
+            chiffre = proposechiffre(chiffreprec, signeReponsePrecedente);
 
 
         }
@@ -228,7 +225,6 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
             nbPropose[i] = decoupage;
         }
         boucleAlgo = lenght;
-        return nbPropose;
 
 
     }
@@ -236,12 +232,11 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
     /**
      * cette méthode sert à proposer une nouvelle valeur à l'aide de deux valeurs : la proposition précedente et la réponse de l'utilisateur (en "+", "-" et "=" )
      *
-     * @param chiffreCourant   le chiffre qui sera proposé à l'issue de cette méthode
      * @param chiffrePrecedent le chiffre proposé au tour précédent
      * @param signe            le signe donné par l'utilisateur
      * @return le chiffre déduit par l'algorithme
      */
-    public int proposechiffre(int chiffreCourant, int chiffrePrecedent, String signe) {
+    private int proposechiffre(int chiffrePrecedent, String signe) {
         logger.info("analyse de la réponse utilisateur et proposition d'une réponse adéquate chiffre par chiffre ");
         int valeurMax = 10;
         int valeurMin = 1;
@@ -262,26 +257,24 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
 
         if (signeReponsePrecedente.equals("+")) {
             resultat = ((chiffrePrecedent + valeurMax) / 2);
-            valeurMax = 10;
             boucleAlgo--;
 
         }
         if (signeReponsePrecedente.equals("-")) {
             resultat = ((chiffrePrecedent + valeurMin) / 2);
-            valeurMin = 1;
             boucleAlgo--;
         }
 
         int chiffreCourantPartiel = (int) (resultat * (pow(10, boucleAlgo)));
         chiffreProposeTransitoire = chiffreCourantPartiel + chiffreProposeTransitoire;
-        chiffreCourant = chiffreProposeTransitoire;
+        int chiffreCourant = chiffreProposeTransitoire;
         return chiffreCourant;
 
     }
 
     @Override
-    protected boolean verification(String proposition, String[] propositionDecoupe) {
- return Boolean.parseBoolean(null);
+    protected void verification(String proposition, String[] propositionDecoupe) {
+        Boolean.parseBoolean(null);
     }
 }
 

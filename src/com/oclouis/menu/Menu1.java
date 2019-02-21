@@ -15,7 +15,6 @@ public class Menu1 extends Menu {
 
 
     private final Config config;
-    public boolean mode3;
 
     public Menu1(Config config) {
         this.config = config;
@@ -34,7 +33,6 @@ public class Menu1 extends Menu {
             nbMenu1 = getNbMenu();
             logger.info("choix du plus ou moins mode "+nbMenu1);
             if (nbMenu1 == 1) {
-                mode3 = false;
 
 
                 Mode1 rand = new PlusOuMoinsMode1(false , config);
@@ -46,7 +44,6 @@ public class Menu1 extends Menu {
                 c.main();
             }
             else if (nbMenu1 == 3) {
-                mode3 = true ;
                 PlusOuMoinsMode1 f = new PlusOuMoinsMode1(true, config);
                 f.initialisation();
             }

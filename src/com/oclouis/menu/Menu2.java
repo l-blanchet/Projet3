@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
  */
 public class Menu2 extends Menu {
     private final Config config;
-    public boolean mode3;
 
     public Menu2(Config config) {
         this.config = config;
@@ -32,13 +31,11 @@ public class Menu2 extends Menu {
 
             nbMenu2 = getNbMenu();
             if (nbMenu2 == 1) {
-                mode3 = false;
 
                 Mode1 rand = new MastermindMode1(false, config);
                 rand.initialisation();
             }
             if (nbMenu2 == 2) {
-                mode3 = false;
                 Mode2 test = new MastermindMode2(false,config);
                  test.main();
             }

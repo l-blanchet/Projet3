@@ -2,8 +2,8 @@ package com.oclouis.menu;
 
 import java.util.Scanner;
 
-public class Menu {
-    protected int getNbMenu() {
+class Menu {
+    int getNbMenu() {
         int nbMenu1;
         System.out.println("Choisissez le mode de jeu voulu");
         System.out.println("1- Mode Challenger");

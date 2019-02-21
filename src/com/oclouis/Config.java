@@ -14,11 +14,11 @@ public class Config {
     /**
      * méthode générale récupérant toute les valeurs du fichier de configuration
      */
-    private static Logger logger = Logger.getLogger(Config.class);
-    int length;
-    boolean devMod;
-    int nbEssai;
-    int nbCouleur;
+    private static final Logger logger = Logger.getLogger(Config.class);
+    private int length;
+    private boolean devMod;
+    private int nbEssai;
+    private int nbCouleur;
 
     public Config() {
         property();
@@ -26,7 +26,7 @@ public class Config {
 
 
 
-    public void property() {
+    private void property() {
 
         Properties prop = new Properties();
         InputStream input = null;
@@ -75,10 +75,6 @@ public class Config {
 
     public boolean isDevMod() {
         return devMod;
-    }
-
-    public static Logger getLogger() {
-        return logger;
     }
 
     public int getNbEssai() {

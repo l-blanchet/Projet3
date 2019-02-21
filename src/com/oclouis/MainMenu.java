@@ -12,11 +12,11 @@ import java.util.Scanner;
 /**
  * classe affichant le menu principal
  */
-public class MainMenu {
+class MainMenu {
     /**
      * méthode affichant le menu principal
      */
-    private static Logger logger = Logger.getLogger(MainMenu.class);
+    private static final Logger logger = Logger.getLogger(MainMenu.class);
     private final Config config;
 
     public MainMenu(Config config) {
@@ -50,10 +50,7 @@ public class MainMenu {
        }while (jouerEncore ==Result.QUITTER);
     }
 
-    public Result displaySelected(int nbMenu) {
-        /**
-         * méthode récuperant le valeur correspondant au menu où l'utilisateur souhaite se rendre
-         */
+    private Result displaySelected(int nbMenu) {
         Result jouerEncore = Result.QUITTER;
         logger.info("choix du menu " +nbMenu);
         if (nbMenu == 1) {

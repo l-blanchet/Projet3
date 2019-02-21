@@ -13,12 +13,12 @@ import java.util.Arrays;
  */
 public class PlusOuMoinsMode1 extends Game implements Mode1 {
     private final Config config;
-    protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
-    int compteur = 0;
-    int lenght;
-    boolean devMod;
-    private boolean mode3;
-    int nbEssais;
+    private final Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
+    private int compteur = 0;
+    private int lenght;
+    private boolean devMod;
+    private final boolean mode3;
+    private int nbEssais;
 
     public PlusOuMoinsMode1(boolean mode3, Config config) {
         this.mode3 = mode3;
@@ -48,15 +48,15 @@ public class PlusOuMoinsMode1 extends Game implements Mode1 {
      *
      * @return : retourne la valeur obtenue dans messageVictoire
      */
-    public Result mode1() {
+    private Result mode1() {
         PlusOuMoinsMode2 modeHybride = null;
         Result jouerEncore = Result.REJOUER;
         logger.info("lancement du jeu ou relance d'un tour");
-        if (mode3 == true) {
+        if (mode3) {
             modeHybride = new PlusOuMoinsMode2(mode3, config);
             nbEssais = 99;
         }
-        if (mode3 == false) {
+        if (!mode3) {
             System.out.println("Vous avez sélectionné le mode 1, vous avez " + nbEssais + " essais, bonne chance !");
         }
 
@@ -64,8 +64,8 @@ public class PlusOuMoinsMode1 extends Game implements Mode1 {
             if ((compteur == 0 && jouerEncore == Result.RELANCER) || (jouerEncore == Result.REJOUER && compteur == 0)) {
                 randomizer();
             }
-            jouerEncore = this.essais(compteur);
-            if (mode3 == true && 1 == compteur) {
+            jouerEncore = this.essais();
+            if (mode3 && 1 == compteur) {
                 jouerEncore = modeHybride.main();
             }
             if (mode3 && compteur > 1) {
@@ -85,24 +85,22 @@ public class PlusOuMoinsMode1 extends Game implements Mode1 {
      *
      * @return : retourne true pour continuer le do/while de mode1
      */
-    public boolean randomizer() {
+    private void randomizer() {
         logger.info("lancement de randomizer");
 
         nbMystereDecoupe = getRandomized(lenght);
         nbMysteredecoupePrecedent = nbMystereDecoupe;
-        logger.info("randomizer vient de renvoyer le nombre mystere" + nbMystereDecoupe);
-        return true;
+        logger.info("randomizer vient de renvoyer le nombre mystere" + Arrays.toString(nbMystereDecoupe));
     }
 
     /**
      * cette méthode effectue un essai
      *
-     * @param affichageCompteur : utilisé en tant qu'argument à la place de compteur, il sert aussi d'affichage du nombre de tours
      * @return : sert à indiquer ce que l'utilisateur veut faire en renvoyant le booléen obtenu dans messageVictoire
      */
-    private Result essais(int affichageCompteur) {
-        affichageCompteur = compteur;
-        if (devMod == true) {
+    private Result essais() {
+        int affichageCompteur = compteur;
+        if (devMod) {
             System.out.println(Arrays.toString(nbMystereDecoupe));
         }
         compteur = compteur + 1;
@@ -114,7 +112,7 @@ public class PlusOuMoinsMode1 extends Game implements Mode1 {
             verif = true;
         }
         System.out.println(Arrays.toString(propositionDecoupe));
-        if (verif == true) {
+        if (verif) {
             Result jouerEncore;
             jouerEncore = this.messageVictoire(propositionDecoupe);
             return jouerEncore;
@@ -135,7 +133,7 @@ public class PlusOuMoinsMode1 extends Game implements Mode1 {
             compteur = 0;
         }
         if (compteur == 6) {
-            System.out.println("Vous avez perdu");
+            System.out.println("Vous avez perdu, la salution était " + Arrays.toString(nbMystereDecoupe));
             compteur = 0;
         }
         return rejouer();
@@ -148,7 +146,7 @@ public class PlusOuMoinsMode1 extends Game implements Mode1 {
      * @param propositionDecoupe : pour récuperer le nombre proposé par l'utilisateur
      * @return :renvoie true pour continuer le tour
      */
-    protected boolean verification(String proposition, String[] propositionDecoupe) {
+    protected void verification(String proposition, String[] propositionDecoupe) {
         logger.info("vérification de la proposition de l'utilisateur");
         String[] reponse = new String[proposition.length()];
 
@@ -163,14 +161,13 @@ public class PlusOuMoinsMode1 extends Game implements Mode1 {
             if (propositioncut == nbDecoupe) {
                 reponse[verificateur] = "=";
             } else if (propositioncut < nbDecoupe) {
-                reponse[verificateur] = "-";
-            } else if (propositioncut > nbDecoupe) {
                 reponse[verificateur] = "+";
+            } else if (propositioncut > nbDecoupe) {
+                reponse[verificateur] = "-";
             }
 
         }
         System.out.println("réponse" + Arrays.toString(reponse));
-        return true;
     }
 
 }

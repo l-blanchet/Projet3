@@ -8,14 +8,14 @@ import java.util.Arrays;
 
 public class MastermindMode1 extends Game implements Mode1 {
     private final Config configuration;
-    protected Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
-    int compteur = 0;
-    int bienPlace;
-    int malPlace;
-    int lenght;
-    boolean devMod;
-    int nbEssais;
-    private boolean mode3;
+    private final Logger logger = Logger.getLogger(PlusOuMoinsMode1.class);
+    private int compteur = 0;
+    private int bienPlace;
+    private int malPlace;
+    private int lenght;
+    private boolean devMod;
+    private int nbEssais;
+    private final boolean mode3;
 
     public MastermindMode1(boolean mode3, Config config) {
         this.mode3 = mode3;
@@ -45,15 +45,15 @@ public class MastermindMode1 extends Game implements Mode1 {
      *
      * @return : retourne la valeur obtenue dans messageVictoire
      */
-    public Result mode1() {
+    private Result mode1() {
         Mode2 mode3Initializer = null;
         Result jouerEncore = Result.REJOUER;
         logger.info("lancement du jeu ou relance d'un tour");
-        if (mode3 == true) {
+        if (mode3) {
             mode3Initializer = new MastermindMode2(mode3, configuration);
             nbEssais = 99;
         }
-        if (mode3 == false) {
+        if (!mode3) {
             System.out.println("Vous avez sélectionné le mode 1, vous avez " + nbEssais + " essais, bonne chance !");
         }
 
@@ -61,8 +61,8 @@ public class MastermindMode1 extends Game implements Mode1 {
             if ((compteur == 0 && jouerEncore == Result.RELANCER) || (jouerEncore == Result.REJOUER && compteur == 0)) {
                 randomizer();
             }
-            jouerEncore = this.essais(compteur);
-            if (mode3 == true && 1 == compteur) {
+            jouerEncore = this.essais();
+            if (mode3 && 1 == compteur) {
                 jouerEncore = mode3Initializer.main();
             }
             if (mode3 && compteur > 1) {
@@ -82,24 +82,22 @@ public class MastermindMode1 extends Game implements Mode1 {
      *
      * @return : retourne true pour continuer le do/while de mode1
      */
-    public boolean randomizer() {
+    private void randomizer() {
         logger.info("lancement de randomizer");
 
         nbMystereDecoupe = getRandomized(lenght);
         nbMysteredecoupePrecedent = nbMystereDecoupe;
         logger.info("randomizer vient de renvoyer le nombre mystere" + Arrays.toString(nbMystereDecoupe));
-        return true;
     }
 
     /**
      * cette méthode effectue un essai
      *
-     * @param afficheurTour : utilisé en tant qu'argument à la place de compteur, il sert aussi d'affichage du nombre de tours
      * @return : sert à indiquer ce que l'utilisateur veut faire en renvoyant le booléen obtenu dans messageVictoire
      */
-    private Result essais(int afficheurTour) {
-        afficheurTour = compteur;
-        if (devMod == true) {
+    private Result essais() {
+        int afficheurTour = compteur;
+        if (devMod) {
             System.out.println(Arrays.toString(nbMystereDecoupe));
         }
         compteur = compteur + 1;
@@ -111,9 +109,9 @@ public class MastermindMode1 extends Game implements Mode1 {
             verif = true;
         }
         System.out.println(Arrays.toString(propositionDecoupe));
-        if (verif == true) {
+        if (verif) {
             Result jouerEncore;
-            jouerEncore = this.messageVictoire(compteur, propositionDecoupe);
+            jouerEncore = this.messageVictoire();
             return jouerEncore;
         }
         return Result.REJOUER;
@@ -122,17 +120,16 @@ public class MastermindMode1 extends Game implements Mode1 {
     /**
      * cette méthode affiche le message de victoire/défaite et affiche le menu de sélection
      *
-     * @param propositionDecoupe : la proposition de l'utilisateur decoupé dans une String[]
      * @return : sert à indiquer ce que veux faire l'utilisateur après la partie; true pour relancer un niveau et false pour revenir au menu principal
      */
-    private Result messageVictoire(int compteur2, String[] propositionDecoupe) {
+    private Result messageVictoire() {
 
         if (bienPlace == lenght) {
             System.out.println("Vous avez gagné en " + compteur + " essais, Bravo!");
             compteur = 0;
         }
-        if (compteur == 10 && mode3 == false) {
-            System.out.println("Vous avez perdu");
+        if (compteur == 10 && !mode3) {
+            System.out.println("Vous avez perdu, la soltion était "+ Arrays.toString(nbMystereDecoupe));
             compteur = 0;
         }
         return rejouer();
@@ -146,7 +143,7 @@ public class MastermindMode1 extends Game implements Mode1 {
      * @param propositionDecoupe : pour récuperer le nombre proposé par l'utilisateur
      * @return :renvoie true pour continuer le tour
      */
-    protected boolean verification(String proposition, String[] propositionDecoupe) {
+    protected void verification(String proposition, String[] propositionDecoupe) {
 
         logger.info("vérification de la proposition de l'utilisateur");
         String nbMystere;
@@ -220,7 +217,6 @@ public class MastermindMode1 extends Game implements Mode1 {
         }
         bienPlace = 0;
         malPlace = 0;
-        return true;
     }
 
 }
