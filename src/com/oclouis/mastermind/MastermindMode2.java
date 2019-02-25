@@ -239,7 +239,7 @@ public class MastermindMode2 extends Game implements com.oclouis.Mode2 {
         }
         for (long i = (long) pow(10, (lenght - 1)); i < (pow(10, lenght) - 1); i++) {
             essai = String.valueOf(i);
-            System.out.println(essai);
+            logger.debug(essai);
             bienPlace = 0;
             malPlace = 0;
             existence = solutionPossible.contains(essai);

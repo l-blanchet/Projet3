@@ -27,6 +27,7 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
     private String[] nbMystereDecoupe;
     private int lenght;
     private int compteur;
+    private int nbEssais;
     private int boucleAlgo;
 
     public PlusOuMoinsMode2(boolean mode3, Config config) {
@@ -59,7 +60,7 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
         logger.info("mise à zéro des valeurs");
         lenght = configuration.getLength();
         boolean devMod = configuration.isDevMod();
-        compteur = configuration.getNbEssai();
+        nbEssais = configuration.getNbEssai();
 
         nbPropose = new String[lenght];
         for (int i = 0; i < lenght; i++) {
@@ -190,7 +191,7 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
             return jouerEncore;
 
 
-        } else if (compteur >= 5) {
+        } else if (compteur >= nbEssais) {
             System.out.println("Vous avez gagné !");
             Result jouerEncore;
             jouerEncore = rejouer();
@@ -202,7 +203,7 @@ public class PlusOuMoinsMode2 extends Game implements Mode2 {
     /**
      * cette méthode découpe le résultat obtenu de l'ordinateur et la réponse donné par l'utilisateur pour proposer de nouvelles valeurs en adéquation avec ces deux résultats
      *
-     * @return retourne la nouvelle valeur que l'ordinateur proposera
+     * return retourne la nouvelle valeur que l'ordinateur proposera
      */
     private void nbPropose() {
         logger.info("analyse de la réponse utilisateur et proposition d'une réponse adéquate");

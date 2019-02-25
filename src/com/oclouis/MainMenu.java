@@ -30,7 +30,6 @@ class MainMenu {
            int nbMenu;
            do {
 
-               System.out.println("bienvenue sur mon premier projet");
                System.out.println("--------MENU---------");
                System.out.println("1- Plus ou Moins");
                System.out.println("2- MasterMind");

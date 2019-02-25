@@ -80,7 +80,7 @@ public class MastermindMode1 extends Game implements Mode1 {
     /**
      * lance la classe Game pour obtenir un nombre de longueur = lenght
      *
-     * @return : retourne true pour continuer le do/while de mode1
+     * return : retourne true pour continuer le do/while de mode1
      */
     private void randomizer() {
         logger.info("lancement de randomizer");
@@ -141,7 +141,7 @@ public class MastermindMode1 extends Game implements Mode1 {
      *
      * @param proposition        : sert à obtenir la longueur de la proposition
      * @param propositionDecoupe : pour récuperer le nombre proposé par l'utilisateur
-     * @return :renvoie true pour continuer le tour
+     * return :renvoie true pour continuer le tour
      */
     protected void verification(String proposition, String[] propositionDecoupe) {
 
