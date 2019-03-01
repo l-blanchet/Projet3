@@ -1,5 +1,6 @@
 package com.oclouis.menu;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Menu {
@@ -11,7 +12,12 @@ class Menu {
         System.out.println("3- Mode Duel");
         System.out.println("4- Retour");
         Scanner sc = new Scanner(System.in);
-        nbMenu1 = sc.nextInt();
+        nbMenu1 = 0;
+        try {
+            nbMenu1 = sc.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("veillez à ne rentrer que des chiffres !");
+        }
         return nbMenu1;
     }
 }
